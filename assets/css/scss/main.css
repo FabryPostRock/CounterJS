@@ -13782,8 +13782,12 @@ fieldset:disabled .btn {
   color: #e26a08;
 }
 
-.btn {
+.btn-big {
   --bs-btn-font-size: 4rem;
+}
+
+.btn {
+  --bs-btn-box-shadow: 4px 4px 3px 3px rgba($secondary, 0.5);
 }
 
 .btn-secondary {
@@ -13797,30 +13801,10 @@ fieldset:disabled .btn {
   --bs-btn-active-color: #fff;
   --bs-btn-active-bg: #241d18;
   --bs-btn-active-border-color: #e26a08;
-  --bs-btn-active-shadow: 4px 4px 3px 3px rgba($secondary, 0.5);
+  --bs-btn-active-shadow: 4px 4px 3px 3px rgba(#e26a08, 0.5);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: rgba(226, 106, 8, 0.6);
   --bs-btn-disabled-border-color: #fff;
-}
-
-.form-control {
-  --bs-body-color: #241d18;
-  --bs-border-color: #241d18;
-  color: #e26a08;
-}
-
-.form-control:focus {
-  border-color: #e26a08;
-  -webkit-box-shadow: 4px 4px 3px 3px rgba(226, 106, 8, 0.5);
-          box-shadow: 4px 4px 3px 3px rgba(226, 106, 8, 0.5);
-}
-
-.form-select {
-  --bs-body-color: #241d18;
-  --bs-border-color: #241d18;
-  color: var(--bs-body-color);
-  border: var(--bs-border-width) solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
 }
 
 /* ------------------------------------------------ SPACING ----------------------------------------------------*/
@@ -13913,6 +13897,10 @@ fieldset:disabled .btn {
 
 .material-symbols-outlined.g-icon-7em {
   font-size: 7rem;
+}
+
+button:hover .material-symbols-outlined.g-icon-secondary-color {
+  color: #e26a08;
 }
 
 /* Mobile Styles */

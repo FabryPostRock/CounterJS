@@ -2,6 +2,13 @@
 <html lang="it">
     <head>
         <title>Prova quanto hai procastinato oggi</title>
+        <link rel="icon" type="image/png" href="assets/img/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+        <link rel="shortcut icon" href="assets/img/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="ProcastinationGame" />
+        <link rel="manifest" href="assets/img/site.webmanifest" />
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
         <!--utilizzato per fornire una breve descrizione del contenuto della pagina web. Questa descrizione è spesso utilizzata dai motori di ricerca nei 
         risultati di ricerca per dare agli utenti un'idea del contenuto della pagina.
         Mettere il nome all’inizio del title aiuta quando qualcuno cerca “Fabrizio De Masi”.-->
@@ -14,12 +21,12 @@
         index = la pagina può finire in SERP
         follow = i link al suo interno possono essere seguiti e considerati da Google.-->
         <meta name="robots" content="index, follow">
-        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
         <!--Serve a dire a Google qual è l’URL  ufficiale  della pagina e:
             - migliora il ranking
             - evita che i search engines vedano i contenuti doppi come spam
             - migliora il crawling cioè facilita l'indexing di nuove pagine o pagine importanti
         -->
+
         <link rel="canonical" href="https:// ">
         <meta name="keywords" content="procastinazione, gioco, consapevolezza">
         <!-- Open Graph per social sharing (Facebook, LinkedIn ecc.) -->
@@ -74,15 +81,15 @@
                   <h5 class="modal-title">Modal title</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body d-flex align-content-center justify-content-center">
                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <img class="card-img-top" src="assets/img/man_level1.png" alt="Card image cap">
                         <div class="card-body">
                           <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <p class="card-text text-justify">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                           <a href="#" class="btn btn-secondary">Go somewhere</a>
                         </div>
-                      </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -103,13 +110,13 @@
                 <div class="d-flex col-12 col-md-6 justify-content-center m-5">
                     <!--type button: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen
                                 to the element's events, which are triggered when the events occur.-->
-                    <button type="button" class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-75 rounded-5">
-                        <span class="material-symbols-outlined g-icon-6em">thumb_up</span>
+                    <button type="button" class="btn-big btn btn-secondary d-inline-flex align-items-center justify-content-center w-75 rounded-5">
+                        <span class="material-symbols-outlined g-icon-6em g-icon-secondary-color">thumb_up</span>
                     </button>
                 </div>
                 <div class="d-flex col-12 col-md-6 justify-content-center m-5">
-                    <button type="button" class="btn btn-secondary d-inline-flex align-items-center justify-content-center  w-75 rounded-5">
-                        <span class="material-symbols-outlined g-icon-6em">thumb_down</span>
+                    <button type="button" class="btn-big btn btn-secondary d-inline-flex align-items-center justify-content-center  w-75 rounded-5">
+                        <span class="material-symbols-outlined g-icon-6em g-icon-secondary-color">thumb_down</span>
                     </button>
                 </div>                
             </div>

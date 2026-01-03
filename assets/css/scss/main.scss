@@ -32,12 +32,18 @@
     color: $bs-black-0x241d18 !important;
 }
 
-.secondary-color{
+.secondary-color {
     color: #{$secondary}; 
 }
-.btn{
+
+.btn-big {
     --bs-btn-font-size: 4rem;
 }
+//$btn-box-shadow:4px 4px 3px 3px rgba(#{$secondary}, 0.5);
+.btn {
+    --bs-btn-box-shadow: 4px 4px 3px 3px rgba($secondary, 0.5);
+}
+
 .btn-secondary {
     --bs-btn-color:#fff;
     --bs-btn-bg: #{$secondary};
@@ -49,30 +55,12 @@
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #{$bs-black-0x241d18};
     --bs-btn-active-border-color: #{$secondary};
-    --bs-btn-active-shadow: 4px 4px 3px 3px rgba($secondary, 0.5);//inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-active-shadow: 4px 4px 3px 3px rgba(#{$secondary}, 0.5);//inset 0 3px 5px rgba(0, 0, 0, 0.125);
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #{$btn-disabled-bg};  
     --bs-btn-disabled-border-color: #fff; 
 } 
  
-.form-control{
-    --bs-body-color : #{$bs-black-0x241d18};
-    --bs-border-color : #{$bs-black-0x241d18};
-    color: #{$secondary};
-}
-
-.form-control:focus{
-    border-color: #{$secondary};
-    box-shadow: 4px 4px 3px 3px rgba($secondary, 0.5);
-} 
-
-.form-select {
-    --bs-body-color : #{$bs-black-0x241d18};
-    --bs-border-color : #{$bs-black-0x241d18};
-    color: var(--bs-body-color);
-    border: var(--bs-border-width) solid var(--bs-border-color);
-    border-radius: var(--bs-border-radius);
-}
  
 /* ------------------------------------------------ SPACING ----------------------------------------------------*/
 .mt-6 {
@@ -142,7 +130,11 @@
 .material-symbols-outlined.g-icon-6em { font-size: 6rem; } 
 .material-symbols-outlined.g-icon-7em { font-size: 7rem; } 
 
+button:hover{
+    .material-symbols-outlined.g-icon-secondary-color{ color: #{$secondary} };
+}
  
+
 /* Mobile Styles */
 @media only screen and (max-width: 578px) {
     .mt-sm-md-9 {
