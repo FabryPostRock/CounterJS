@@ -58,13 +58,14 @@ $shake-iterations: 6;
 /* L’elementino che vola */
 .floating-reaction {
     position: absolute;
+    display: inline !important;
     left: 50%;
     bottom: 65%;               // parte “dalla faccia” del pulsante
     transform: translateX(-50%);
     pointer-events: none;
     user-select: none;
     will-change: transform, opacity;
-    font-size: 1.1rem;         // “in piccolo”
+    font-size: 2rem;         // “in piccolo”
     opacity: 0;
 
     /* usa variabili per randomizzare */

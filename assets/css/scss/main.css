@@ -13840,8 +13840,9 @@ fieldset:disabled .btn {
 }
 
 /* L’elementino che vola */
-.floating-reaction:hover {
+.floating-reaction {
   position: absolute;
+  display: inline !important;
   left: 50%;
   bottom: 65%;
   -webkit-transform: translateX(-50%);
@@ -13852,7 +13853,7 @@ fieldset:disabled .btn {
       -ms-user-select: none;
           user-select: none;
   will-change: transform, opacity;
-  font-size: 1.1rem;
+  font-size: 2rem;
   opacity: 0;
   /* usa variabili per randomizzare */
   -webkit-animation: floatUp var(--dur, 900ms) ease-out forwards;
