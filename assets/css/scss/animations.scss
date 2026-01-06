@@ -1,2 +1,98 @@
 @import "colors";
-/*----------------------------------------------------------- ANIMATIONS ----------------------------------------------------*/
+/*----------------------------------------------------------- COUNTER ROTATION ----------------------------------------------------*/
+$txt-rotation-duration: 2s;
+$txt-translation-Z: 5rem;
+$txt-perspective-start: 30rem;
+$txt-perspective-end: 50rem;
+// mixin che applica una rotazione Y come animazione
+@mixin rotateY-infinite($duration: 4s, $anim-name: txt-rotateY-pop) {
+    animation: #{$anim-name} $duration ease-in-out infinite alternate;
+}
+
+// l’elemento (immagine) supporta il 3D
+.txt-rotateY {
+    transform-style: preserve-3d;
+    @include rotateY-infinite($txt-rotation-duration, txt-rotateY-pop);
+}
+
+@keyframes txt-rotateY-pop {
+    0% {
+        transform: perspective($txt-perspective-start) rotateY(0deg) translateZ(0);
+    }
+    100% {
+        transform: perspective($txt-perspective-end) rotateY(360deg) translateZ($txt-translation-Z);
+    }
+}
+
+/*-----------------------------------------------------------------COUNTER SHAKE--------------------------------------------------------------*/
+ 
+$shake-l-start: -1rem;
+$shake-duration: 0.1s;
+$shake-iterations: 6;
+@mixin anim-shake($x: 1rem, $duration: 0.15s, $iterations: 6) {
+    --shake-distance: #{$x};
+    animation: shakeXY $duration ease-in-out $iterations;
+}
+
+@keyframes shakeXY {
+    0%  { transform: translateX(0); }
+    25% { transform: translateX(calc(var(--shake-distance) * -1)); }
+    50% { transform: translateX(var(--shake-distance)); }
+    75% { transform: translateX(calc(var(--shake-distance) * -1)); }
+    100% { transform: translateX(0); }
+}
+
+.txt-rotateY.is-shaking {
+    display: inline-block;
+    transform-style: flat;
+    @include anim-shake($shake-l-start, $shake-duration, $shake-iterations);
+}
+
+/*---------------------------------------------------------BUTTON FLOATING REACTION-------------------------------------------------*/@at-root
+  
+.btn-reaction {
+    position: relative;        // serve per ancorare i "floating"
+    overflow: visible;         // permette di uscire sopra
+}
+
+/* L’elementino che vola */
+.floating-reaction {
+    position: absolute;
+    left: 50%;
+    bottom: 65%;               // parte “dalla faccia” del pulsante
+    transform: translateX(-50%);
+    pointer-events: none;
+    user-select: none;
+    will-change: transform, opacity;
+    font-size: 1.1rem;         // “in piccolo”
+    opacity: 0;
+
+    /* usa variabili per randomizzare */
+    animation: floatUp var(--dur, 900ms) ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(0) scale(.7) rotate(0deg);
+        filter: blur(.2px);
+    }
+    10% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform:
+        translateX(calc(-50% + var(--drift, 0px)))
+        translateY(calc(-1 * var(--rise, 70px)))
+        scale(var(--scale, 1.1))
+        rotate(var(--rot, 0deg));
+        filter: blur(0px);
+    }
+}
+  
+
+  

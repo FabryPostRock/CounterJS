@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
    * Bootstrap  v5.3.8 (https://getbootstrap.com/)
    * Copyright 2011-2025 The Bootstrap Authors
@@ -13747,7 +13748,163 @@ fieldset:disabled .btn {
   --bs-gray-900-rgb: 33, 37, 41;
 }
 
-/*----------------------------------------------------------- ANIMATIONS ----------------------------------------------------*/
+/*----------------------------------------------------------- COUNTER ROTATION ----------------------------------------------------*/
+.txt-rotateY {
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-animation: txt-rotateY-pop 2s ease-in-out infinite alternate;
+          animation: txt-rotateY-pop 2s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes txt-rotateY-pop {
+  0% {
+    -webkit-transform: perspective(30rem) rotateY(0deg) translateZ(0);
+            transform: perspective(30rem) rotateY(0deg) translateZ(0);
+  }
+  100% {
+    -webkit-transform: perspective(50rem) rotateY(360deg) translateZ(5rem);
+            transform: perspective(50rem) rotateY(360deg) translateZ(5rem);
+  }
+}
+
+@keyframes txt-rotateY-pop {
+  0% {
+    -webkit-transform: perspective(30rem) rotateY(0deg) translateZ(0);
+            transform: perspective(30rem) rotateY(0deg) translateZ(0);
+  }
+  100% {
+    -webkit-transform: perspective(50rem) rotateY(360deg) translateZ(5rem);
+            transform: perspective(50rem) rotateY(360deg) translateZ(5rem);
+  }
+}
+
+/*-----------------------------------------------------------------COUNTER SHAKE--------------------------------------------------------------*/
+@-webkit-keyframes shakeXY {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  25% {
+    -webkit-transform: translateX(calc(var(--shake-distance) * -1));
+            transform: translateX(calc(var(--shake-distance) * -1));
+  }
+  50% {
+    -webkit-transform: translateX(var(--shake-distance));
+            transform: translateX(var(--shake-distance));
+  }
+  75% {
+    -webkit-transform: translateX(calc(var(--shake-distance) * -1));
+            transform: translateX(calc(var(--shake-distance) * -1));
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@keyframes shakeXY {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  25% {
+    -webkit-transform: translateX(calc(var(--shake-distance) * -1));
+            transform: translateX(calc(var(--shake-distance) * -1));
+  }
+  50% {
+    -webkit-transform: translateX(var(--shake-distance));
+            transform: translateX(var(--shake-distance));
+  }
+  75% {
+    -webkit-transform: translateX(calc(var(--shake-distance) * -1));
+            transform: translateX(calc(var(--shake-distance) * -1));
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+.txt-rotateY.is-shaking {
+  display: inline-block;
+  -webkit-transform-style: flat;
+          transform-style: flat;
+  --shake-distance: -1rem;
+  -webkit-animation: shakeXY 0.1s ease-in-out 6;
+          animation: shakeXY 0.1s ease-in-out 6;
+}
+
+/*---------------------------------------------------------BUTTON FLOATING REACTION-------------------------------------------------*/
+.btn-reaction {
+  position: relative;
+  overflow: visible;
+}
+
+/* L’elementino che vola */
+.floating-reaction:hover {
+  position: absolute;
+  left: 50%;
+  bottom: 65%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  will-change: transform, opacity;
+  font-size: 1.1rem;
+  opacity: 0;
+  /* usa variabili per randomizzare */
+  -webkit-animation: floatUp var(--dur, 900ms) ease-out forwards;
+          animation: floatUp var(--dur, 900ms) ease-out forwards;
+}
+
+@-webkit-keyframes floatUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-50%) translateY(0) scale(0.7) rotate(0deg);
+            transform: translateX(-50%) translateY(0) scale(0.7) rotate(0deg);
+    -webkit-filter: blur(0.2px);
+            filter: blur(0.2px);
+  }
+  10% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+            transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-50%) translateY(0) scale(0.7) rotate(0deg);
+            transform: translateX(-50%) translateY(0) scale(0.7) rotate(0deg);
+    -webkit-filter: blur(0.2px);
+            filter: blur(0.2px);
+  }
+  10% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+            transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+  }
+}
+
 :root {
   /* PRIMARY: */
   --bs-primary: #ffffff;
@@ -13786,10 +13943,6 @@ fieldset:disabled .btn {
   --bs-btn-font-size: 4rem;
 }
 
-.btn {
-  --bs-btn-box-shadow: 4px 4px 3px 3px rgba($secondary, 0.5);
-}
-
 .btn-secondary {
   --bs-btn-color:#fff;
   --bs-btn-bg: #e26a08;
@@ -13801,7 +13954,6 @@ fieldset:disabled .btn {
   --bs-btn-active-color: #fff;
   --bs-btn-active-bg: #241d18;
   --bs-btn-active-border-color: #e26a08;
-  --bs-btn-active-shadow: 4px 4px 3px 3px rgba(#e26a08, 0.5);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: rgba(226, 106, 8, 0.6);
   --bs-btn-disabled-border-color: #fff;
