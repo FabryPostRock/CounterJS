@@ -40,23 +40,53 @@
         <script type="application/ld+json">
             {
               "@context": "https://schema.org",
-              "@type": "ProfilePage",
-              "name": "Fabrizio De Masi",
-              "url": "https://fabrypostrock.github.io/",
-              "mainEntity": {
-                "@type": "Person",
-                "name": "Fabrizio De Masi",
-                "jobTitle": "Data & AI Engineer",
-                "description": "Dal mondo dell'automazione industriale e del Machine Learning alla pratica del Tai Chi e allo studio della Medicina Cinese.",
-                "image": "https://fabrypostrock.github.io/assets/img/logo_fabri.png",
-                "sameAs": [
-                  "https://github.com/FabryPostRock",
-                  "https://www.linkedin.com/in/fabrizio-de-masi-55016088/",
-                  "https://www.instagram.com/fabridemasi/"
-                ]
-              }
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://tuodominio.it/#website",
+                  "url": "https://tuodominio.it/",
+                  "name": "Anti-Procrastination Game",
+                  "description": "Un semplice gioco interattivo per monitorare quante volte hai procastinato nella giornata con un sistema di pollice su e pollice giù.",
+                  "inLanguage": "it-IT",
+                  "publisher": {
+                    "@type": "Person",
+                    "name": "Fabrizio De Masi"
+                  }
+                },
+                {
+                  "@type": "WebPage",
+                  "@id": "https://tuodominio.it/gioco-procrastinazione",
+                  "url": "https://tuodominio.it/gioco-procrastinazione",
+                  "name": "Gioco Anti-Procrastinazione | Pollice su o giù",
+                  "isPartOf": {
+                    "@id": "https://tuodominio.it/#website"
+                  },
+                  "description": "Pagina del gioco anti-procrastinazione: registra i tuoi momenti di procastinazione cliccando sul pulsante con pollice basso e celebra i momenti produttivi con il pollice alto.",
+                  "inLanguage": "it-IT"
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  "@id": "https://tuodominio.it/gioco-procrastinazione#app",
+                  "name": "Gioco Anti-Procrastinazione",
+                  "applicationCategory": "GameApplication",
+                  "operatingSystem": "Web",
+                  "url": "https://tuodominio.it/gioco-procrastinazione",
+                  "description": "Gioco web minimalista in cui puoi premere un pulsante con pollice alto o pollice basso per tracciare quante volte hai procastinato durante la giornata.",
+                  "creator": {
+                    "@type": "Person",
+                    "name": "Fabrizio De Masi"
+                  },
+                  "featureList": [
+                    "Contatore dei momenti di procastinazione",
+                    "Pulsante pollice alto per i momenti produttivi",
+                    "Interfaccia semplice e minimal",
+                    "Statistiche giornaliere di base"
+                  ],
+                  "inLanguage": "it-IT"
+                }
+              ]
             }
-        </script>
+            </script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <!--Import Google Icon Font more customizable
         Supports variable font axes:
