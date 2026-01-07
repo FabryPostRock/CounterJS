@@ -48,7 +48,7 @@ $shake-iterations: 6;
     @include anim-shake($shake-l-start, $shake-duration, $shake-iterations);
 }
 
-/*---------------------------------------------------------BUTTON FLOATING REACTION-------------------------------------------------*/@at-root
+/*---------------------------------------------------------BUTTON FLOATING REACTION-------------------------------------------------*/
   
 .btn-reaction {
     position: relative;        // serve per ancorare i "floating"
@@ -58,14 +58,12 @@ $shake-iterations: 6;
 /* L’elementino che vola */
 .floating-reaction {
     position: absolute;
-    display: inline !important;
-    left: 50%;
-    bottom: 65%;               // parte “dalla faccia” del pulsante
-    transform: translateX(-50%);
-    pointer-events: none;
-    user-select: none;
+    display: inline !important; // fa l'override del 'none' in-style
+    bottom: 65%;               // parte dalla parte alta dell'icona del pulsante
+    pointer-events: none;   // lo span non blocca click/tap
+    user-select: none;     // lo span non si può selezionare (niente highlight)
     will-change: transform, opacity;
-    font-size: 2rem;         // “in piccolo”
+    font-size: 2rem;         
     opacity: 0;
 
     /* usa variabili per randomizzare */
@@ -87,10 +85,11 @@ $shake-iterations: 6;
     100% {
         opacity: 0;
         transform:
-        translateX(calc(-50% + var(--drift, 0px)))
-        translateY(calc(-1 * var(--rise, 70px)))
-        scale(var(--scale, 1.1))
-        rotate(var(--rot, 0deg));
+            // -50% perchè parte dal centro 
+            translateX(calc(-120% + var(--drift, 0px)))
+            translateY(calc(-1 * var(--rise, 70px)))
+            scale(var(--scale, 1.1))
+            rotate(var(--rot, 0deg));
         filter: blur(0px);
     }
 }

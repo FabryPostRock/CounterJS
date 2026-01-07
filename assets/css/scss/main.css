@@ -13843,10 +13843,7 @@ fieldset:disabled .btn {
 .floating-reaction {
   position: absolute;
   display: inline !important;
-  left: 50%;
   bottom: 65%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -13876,8 +13873,8 @@ fieldset:disabled .btn {
   }
   100% {
     opacity: 0;
-    -webkit-transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
-            transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+    -webkit-transform: translateX(calc(-120% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+            transform: translateX(calc(-120% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
     -webkit-filter: blur(0px);
             filter: blur(0px);
   }
@@ -13899,8 +13896,8 @@ fieldset:disabled .btn {
   }
   100% {
     opacity: 0;
-    -webkit-transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
-            transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+    -webkit-transform: translateX(calc(-120% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+            transform: translateX(calc(-120% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
     -webkit-filter: blur(0px);
             filter: blur(0px);
   }
@@ -13917,6 +13914,27 @@ fieldset:disabled .btn {
 }
 
 /*-------------------------------------CIRCLE AND TIMELINE---------------------------------*/
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* top:0 right:0 bottom:0 left:0 */
+  background-image: url("../../img/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
+  /* doesn't block clicks */
+  z-index: -1;
+  /* stays behind content */
+}
+
 /* ---------------------------------COLORS-------------------------------------------*/
 .shadow-orange {
   -webkit-box-shadow: 0 1.5rem 3rem rgba(var(--bs-secondary-rgb), 0.6) !important;

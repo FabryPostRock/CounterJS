@@ -8,9 +8,6 @@ document.querySelectorAll(".btn-reaction").forEach((btn) => {
 function animationStart(span, type) {
   // imposto a hidden altrimenti potrebbe comparire un elemento all'interno del pulsante con font grande come il like se non venisse consumato subito dall'animazione.
   span.style.display = "none";
-  /*//Emoji Version
-    span.className = "floating-reaction";
-    span.textContent = type === "up" ? "👍" : "👎";*/
   // Google Font Icon Version
   span.className =
     "material-symbols-outlined g-icon-secondary-color floating-reaction";

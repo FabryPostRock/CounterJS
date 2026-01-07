@@ -104,10 +104,7 @@
 .floating-reaction {
   position: absolute;
   display: inline !important;
-  left: 50%;
   bottom: 65%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -137,8 +134,8 @@
   }
   100% {
     opacity: 0;
-    -webkit-transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
-            transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+    -webkit-transform: translateX(calc(-120% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+            transform: translateX(calc(-120% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
     -webkit-filter: blur(0px);
             filter: blur(0px);
   }
@@ -160,8 +157,8 @@
   }
   100% {
     opacity: 0;
-    -webkit-transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
-            transform: translateX(calc(-50% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+    -webkit-transform: translateX(calc(-120% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
+            transform: translateX(calc(-120% + var(--drift, 0px))) translateY(calc(-1 * var(--rise, 70px))) scale(var(--scale, 1.1)) rotate(var(--rot, 0deg));
     -webkit-filter: blur(0px);
             filter: blur(0px);
   }
