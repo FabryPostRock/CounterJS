@@ -1,4 +1,6 @@
- 
+/*@import "colors";
+$form-check-input-indeterminate-bg-color:       $secondary;
+$form-check-input-indeterminate-border-color:     $secondary;*/
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 
@@ -72,7 +74,7 @@ body::before {
     --bs-btn-disabled-border-color: #fff; 
 } 
  
- 
+
 /* ------------------------------------------------ SPACING ----------------------------------------------------*/
 .mt-6 {
     margin-top: ($spacer * 6);
@@ -145,6 +147,22 @@ button:hover{
     .material-symbols-outlined.g-icon-secondary-color{ color: #{$secondary} };
 }
  
+
+/*-------------------------------------------------------SELECTORS-----------------------------------------------*/
+.cursor-pointer { cursor: pointer; }
+
+#manRadioSel:checked + label,
+#womanRadioSel:checked + label {
+    outline: 0.6rem solid rgba(var(--bs-secondary-rgb),0.6);
+    outline-offset: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1.5rem 3rem rgba(var(--bs-secondary-rgb), 0.6) !important; 
+}
+
+.modal{
+    --bs-modal-header-border-color: rgba(#{$bs-black-0x241d18-rgb},0.6);
+    --bs-modal-footer-border-color: rgba(var(--bs-secondary-rgb),0.6);
+}
 
 /* Mobile Styles */
 @media only screen and (max-width: 578px) {
