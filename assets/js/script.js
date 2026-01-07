@@ -1,6 +1,6 @@
 document.querySelectorAll(".btn-reaction").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const type = btn.dataset.reaction; // "up" | "down"
+    const type = btn.dataset.reaction; // "up" | "down" coming from the data-reaction button attribute
     spawnReaction(btn, type);
   });
 });
