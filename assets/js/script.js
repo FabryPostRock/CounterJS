@@ -1,3 +1,111 @@
+const genderFigures = {
+  man: [
+    {
+      title: "",
+      imgUrl: "assets/img/man_level1.png",
+      description: "",
+    },
+    {
+      title: "",
+      imgUrl: "assets/img/man_level2.png",
+      description: "",
+    },
+    {
+      title: "",
+      imgUrl: "assets/img/man_level3.png",
+      description: "",
+    },
+    {
+      title: "",
+      imgUrl: "assets/img/man_level4.png",
+      description: "",
+    },
+    {
+      title: "",
+      imgUrl: "assets/img/man_level5.png",
+      description: "",
+    },
+  ],
+  woman: [
+    {
+      title: "",
+      imgUrl: "assets/img/woman_level1.png",
+      description: "",
+    },
+    {
+      title: "",
+      imgUrl: "assets/img/woman_level2.png",
+      description: "",
+    },
+    {
+      title: "",
+      imgUrl: "assets/img/woman_level3.png",
+      description: "",
+    },
+    {
+      title: "",
+      imgUrl: "assets/img/woman_level4.png",
+      description: "",
+    },
+    {
+      title: "",
+      imgUrl: "assets/img/woman_level5.png",
+      description: "",
+    },
+  ],
+};
+
+function openGenderSelModal() {
+  try {
+    const mod = document.getElementById("genderSel");
+    const modal = new bootstrap.Modal(mod, { focus: true });
+    const closeButtons = document.querySelectorAll(
+      'button[name="genderSelection"][data-bs-dismiss="modal"]'
+    );
+    closeButtons.forEach((btn) => btn.setAttribute("disabled", true));
+    mod.addEventListener("hide.bs.modal", () => {
+      console.log("new focus on body!");
+      document.querySelector("#h1-procastination")?.focus();
+    });
+
+    modal.show();
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+function checkFormValidity(e) {
+  function updateCloseState(btns) {
+    try {
+      const selected = document.querySelector(
+        'input[name="genderSelection"]:checked'
+      );
+      btns.forEach((btn) => {
+        btn.disabled = false;
+        btn.removeAttribute("disabled");
+      });
+      sessionStorage.setItem("gender", selected.value);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  e.preventDefault(); // impedisce l'invio del form
+  const radios = document.querySelectorAll('input[name="genderSelection"]');
+  const closeButtons = document.querySelectorAll(
+    'button[name="genderSelection"][data-bs-dismiss="modal"]'
+  );
+  radios.forEach((r) => {
+    console.log(Date.now());
+    r.addEventListener("change", updateCloseState(closeButtons));
+  });
+}
+
+document.addEventListener("DOMContentLoaded", openGenderSelModal);
+const form = document.querySelector("#form-gender-sel");
+form.addEventListener("submit", checkFormValidity);
+
 document.querySelectorAll(".btn-reaction").forEach((btn) => {
   btn.addEventListener("click", () => {
     const type = btn.dataset.reaction; // "up" | "down" coming from the data-reaction button attribute

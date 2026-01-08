@@ -14092,7 +14092,7 @@ button:hover .material-symbols-outlined.g-icon-secondary-color {
 }
 
 .modal {
-  --bs-modal-header-border-color: rgba(36, 29, 24,0.6);
+  --bs-modal-header-border-color: rgba(var(--bs-secondary-rgb),0.6);
   --bs-modal-footer-border-color: rgba(var(--bs-secondary-rgb),0.6);
 }
 

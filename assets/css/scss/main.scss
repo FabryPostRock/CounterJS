@@ -160,7 +160,7 @@ button:hover{
 }
 
 .modal{
-    --bs-modal-header-border-color: rgba(#{$bs-black-0x241d18-rgb},0.6);
+    --bs-modal-header-border-color: rgba(var(--bs-secondary-rgb),0.6);
     --bs-modal-footer-border-color: rgba(var(--bs-secondary-rgb),0.6);
 }
 
