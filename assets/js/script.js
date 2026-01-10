@@ -74,37 +74,53 @@ function openGenderSelModal() {
   }
 }
 
+function updateSelState(e, radio) {
+  try {
+    console.log("updateCloseState called!");
+    return radio?.selected;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
 // Example starter JavaScript for disabling form submissions if there are invalid fields
-function checkFormValidity(e) {
-  function updateCloseState(btns) {
-    try {
-      const selected = document.querySelector(
-        'input[name="genderSelection"]:checked'
-      );
+function checkFormValidity(e, btns, sel) {
+  console.log("checkFormValidity called!");
+  e.preventDefault();
+  console.log(sel?.checked);
+  try {
+    if (sel?.checked) {
       btns.forEach((btn) => {
         btn.disabled = false;
         btn.removeAttribute("disabled");
       });
-      sessionStorage.setItem("gender", selected.value);
-    } catch (e) {
-      console.error(e);
+      sessionStorage.setItem("gender", sel.value);
+    } else {
+      console.log("Something wrong happend!");
     }
+  } catch (err) {
+    console.error(err);
   }
-
-  e.preventDefault(); // impedisce l'invio del form
-  const radios = document.querySelectorAll('input[name="genderSelection"]');
-  const closeButtons = document.querySelectorAll(
-    'button[name="genderSelection"][data-bs-dismiss="modal"]'
-  );
-  radios.forEach((r) => {
-    console.log(Date.now());
-    r.addEventListener("change", updateCloseState(closeButtons));
-  });
 }
 
 document.addEventListener("DOMContentLoaded", openGenderSelModal);
+let selection = null;
+const radios = document.querySelectorAll('input[name="genderSelection"]');
+const closeButtons = document.querySelectorAll(
+  'button[name="genderSelection"][data-bs-dismiss="modal"]'
+);
+radios.forEach((r) => {
+  r.addEventListener("click", (event) => {
+    selection = r;
+    console.log(selection);
+  });
+});
+
 const form = document.querySelector("#form-gender-sel");
-form.addEventListener("submit", checkFormValidity);
+form.addEventListener("submit", (event) =>
+  checkFormValidity(event, closeButtons, selection)
+);
 
 document.querySelectorAll(".btn-reaction").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -113,7 +129,7 @@ document.querySelectorAll(".btn-reaction").forEach((btn) => {
   });
 });
 
-function animationStart(span, type) {
+function animationStart(event, span, type) {
   // imposto a hidden altrimenti potrebbe comparire un elemento all'interno del pulsante con font grande come il like se non venisse consumato subito dall'animazione.
   span.style.display = "none";
   // Google Font Icon Version
@@ -139,7 +155,9 @@ function spawnReaction(buttonEl, type) {
   span.style.setProperty("--dur", `${dur}ms`);
   span.style.setProperty("--scale", scale);
 
-  span.addEventListener("animationstart", animationStart(span, type));
+  span.addEventListener("animationstart", (event) =>
+    animationStart(event, span, type)
+  );
   buttonEl.appendChild(span);
   // pulizia a fine animazione
   span.addEventListener("animationend", () => span.remove());
