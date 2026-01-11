@@ -64,7 +64,16 @@ function openGenderSelModal() {
     );
     closeButtons.forEach((btn) => btn.setAttribute("disabled", true));
     mod.addEventListener("hide.bs.modal", () => {
-      console.log("new focus on body!");
+      console.log("removing focus from modal!");
+      const active = document.activeElement;
+      console.log(active);
+      if (active && mod.contains(active)) {
+        active.blur();
+      }
+      document.querySelector("#h1-procastination")?.focus();
+    });
+    mod.addEventListener("hidden.bs.modal", () => {
+      console.log("new focus on h1!");
       document.querySelector("#h1-procastination")?.focus();
     });
 
@@ -88,7 +97,6 @@ function updateSelState(e, radio) {
 function checkFormValidity(e, btns, sel) {
   console.log("checkFormValidity called!");
   e.preventDefault();
-  console.log(sel?.checked);
   try {
     if (sel?.checked) {
       btns.forEach((btn) => {
@@ -97,7 +105,7 @@ function checkFormValidity(e, btns, sel) {
       });
       sessionStorage.setItem("gender", sel.value);
     } else {
-      console.log("Something wrong happend!");
+      throw new Error("sel has not been selected");
     }
   } catch (err) {
     console.error(err);
@@ -111,9 +119,9 @@ const closeButtons = document.querySelectorAll(
   'button[name="genderSelection"][data-bs-dismiss="modal"]'
 );
 radios.forEach((r) => {
+  //only the triggered event executes the callback to return the selection
   r.addEventListener("click", (event) => {
     selection = r;
-    console.log(selection);
   });
 });
 
