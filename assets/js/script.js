@@ -55,6 +55,7 @@ const genderFigures = {
   ],
 };
 
+let isCountTimeoutStarted = false;
 function openGenderSelModal() {
   try {
     const mod = document.getElementById("genderSel");
@@ -71,6 +72,7 @@ function openGenderSelModal() {
     });
     mod.addEventListener("hidden.bs.modal", () => {
       document.querySelector("#h1-procastination")?.focus();
+      isCountTimeoutStarted = true;
     });
 
     modal.show();
@@ -126,17 +128,239 @@ form.addEventListener("submit", (event) =>
   checkFormValidity(event, closeButtons, selection)
 );
 
+// Gestione del count delle reazioni e cambio figure in funzione del risultato ottenuto
+let p = document.querySelector("#reaction-counter");
+let nCount = 0;
+const TOTAL_COUNTS_LEVELS = [0, -10, -5, -2, 3, 6];
+
+function countReactions(reactionType, el) {
+  const gender = sessionStorage.getItem("gender");
+  let actualFigure;
+  let idxFigure;
+  if (reactionType === "up") {
+    el.textContent = toString(nCount++);
+  } else {
+    el.textContent = toString(nCount--);
+  }
+
+  if (nCount <= TOTAL_COUNTS_LEVELS[1]) {
+    console.log("Selected Fig 1");
+    idxFigure = 1;
+  } else if (nCount <= TOTAL_COUNTS_LEVELS[2]) {
+    console.log("Selected Fig 2");
+    idxFigure = 2;
+  } else if (nCount <= TOTAL_COUNTS_LEVELS[3]) {
+    console.log("Selected Fig 3");
+    idxFigure = 3;
+  } else if (
+    nCount >= TOTAL_COUNTS_LEVELS[4] &&
+    nCount < TOTAL_COUNTS_LEVELS[5]
+  ) {
+    console.log("Selected Fig 4");
+    idxFigure = 4;
+  } else if (nCount >= TOTAL_COUNTS_LEVELS[5]) {
+    console.log("Selected Fig 5");
+    idxFigure = 5;
+  }
+
+  if (gender === "man") {
+    actualFigure = genderFigures.man[idxFigure];
+  } else {
+    actualFigure = genderFigures.woman[idxFigure];
+  }
+  return actualFigure;
+}
+
+/*-------------------------------TIMER COUNTDOWN-----------------------------------------------*/
+// Quando si chiude la modale iniziale parte il conteggio per catturare i thumb up/down
+const COUNT_TIMER = 15000;
+const TIME_TICKS = 1000; //1s
+const SECOND = 1000;
+const RESET_CMD_TIMER = 500;
+let gProgress = 0;
+let gRemaining = 0;
+let gTimerState = "";
+let gTimerDone = false;
+
+function sleepWithProgressOnce(
+  totalMs,
+  onTick,
+  tickMs = 100,
+  getCmd = () => null
+) {
+  // getCmd = () => null serve perchè la variabile passata non è mutabile quindi il suo aggiornamento non viene visto una volta chiamata la funzione
+  let timeDelayID = null;
+  let timeTicksId = null;
+  let startTime = null;
+  let res; // <- qui salvo cosa ritorna onTick
+  let endState;
+  let cmdOut;
+  let cmdOld;
+  let elapsedTime = 0;
+  let remainingTime = 0;
+  let elapsed = "";
+  let remaining = "";
+
+  const mngTimerDelay = (
+    resolve,
+    init = false,
+    restart = false,
+    elapsed,
+    remaining,
+    cmd
+  ) => {
+    cmdOut = null;
+    startTime = performance.now();
+    clearTimeout(timeDelayID);
+
+    if (init) {
+      timeDelayID = setTimeout(() => {
+        clearInterval(timeTicksId);
+        endState = {
+          elapsed: totalMs,
+          remaining: 0,
+          cmd: cmd,
+        };
+        resolve(endState);
+      }, totalMs);
+    } else if (restart) {
+      clearInterval(timeTicksId);
+      endState = {
+        elapsed: elapsed,
+        remaining: remaining,
+        cmd: cmd,
+      };
+      resolve(endState);
+    } else {
+      clearInterval(timeTicksId);
+      endState = {
+        elapsed: elapsed,
+        remaining: remaining,
+        cmd: cmd,
+      };
+      resolve(endState);
+    }
+  };
+
+  return new Promise((resolve) => {
+    timeTicksId = setInterval(() => {
+      function resetProgressTimers() {
+        elapsedTime = Math.floor((performance.now() - startTime) / SECOND);
+        elapsed = elapsedTime.toFixed(0);
+        remainingTime = Math.max(0, totalMs - elapsed) / SECOND;
+        remaining = remainingTime.toFixed(0);
+      }
+
+      resetProgressTimers();
+      const cmd = getCmd(); // legge gli aggiornamenti realtime della variabile esterna
+      if (cmdOld != cmd && cmd) {
+        cmdOut = cmd;
+        cmdOld = cmd;
+        console.log(`cmdOut : ${cmdOut}    cmdOld: ${cmdOld}    cmd: ${cmd}`);
+      }
+
+      if (cmdOut === "reset") {
+        console.log("reset event received!");
+        startTime = performance.now();
+        resetProgressTimers();
+        mngTimerDelay(resolve, false, true, elapsed, remaining, "reset");
+        return;
+      } else if (cmdOut === "stop") {
+        console.log("stop event received!");
+        mngTimerDelay(resolve, false, false, elapsed, remaining, "stopped");
+        return;
+      } else {
+        res = onTick?.({
+          elapsed: elapsed,
+          remaining: remaining,
+          cmd: "running",
+        });
+      }
+    }, tickMs);
+    mngTimerDelay(resolve, true, false, 0, COUNT_TIMER, "finished");
+  });
+}
+
+let btnCmd = null;
+let btnReset = document.querySelector("#btn-reset");
+btnReset.addEventListener("click", () => {
+  btnCmd = "reset";
+  setTimeout(() => {
+    btnCmd = null;
+  }, RESET_CMD_TIMER);
+});
+
+let btnStop = document.querySelector("#btn-stop");
+btnStop.addEventListener("click", () => {
+  btnCmd = "stop";
+  setTimeout(() => {
+    btnCmd = null;
+  }, RESET_CMD_TIMER);
+});
+
+let btnStart = document.querySelector("#btn-start");
+btnStart.addEventListener("click", async () => {
+  try {
+    if (!cycle) {
+      btnCmd = "start";
+      await startTimer();
+      setTimeout(() => {
+        btnCmd = null;
+      }, RESET_CMD_TIMER);
+    }
+  } catch (e) {
+    console.error("startTimer error:", e);
+  }
+});
+
+async function sleepWithProgressAutoRestart(totalMs, onTick, tickMs, cmd) {
+  while (true) {
+    const endState = await sleepWithProgressOnce(totalMs, onTick, tickMs, cmd);
+    console.log("AAAAAAAAAAAAAAAA", endState.cmd);
+    // Se reset, salta il codice che termina l'esecuzione e riparti: nuova Promise
+    if (endState.cmd === "reset") continue;
+    console.log("BBBBBBBBBBBBBBBBB");
+    // Se stopped o finished, esci e ritorna lo stato finale
+    return endState;
+  }
+}
+
+let cycle = null;
+let timerUpdatesId = null;
+
+async function startTimer() {
+  timerUpdatesId = setInterval(() => {
+    console.log("LIVE:", gProgress, gRemaining, gTimerState);
+  }, TIME_TICKS);
+
+  cycle = await sleepWithProgressAutoRestart(
+    COUNT_TIMER,
+    ({ elapsed, remaining, cmd }) => {
+      gProgress = elapsed;
+      gRemaining = remaining;
+      gTimerState = cmd;
+      return { elapsed, remaining, cmd };
+    },
+    100,
+    () => btnCmd
+  ).then((endState) => {
+    clearInterval(timerUpdatesId);
+    console.log("Esecuzione completata!", { ...endState });
+  });
+}
+
+/*---------------------------------------------THUMB UP/DOWN REACTION---------------------------------------------*/
+let actualFig;
 document.querySelectorAll(".btn-reaction").forEach((btn) => {
   btn.addEventListener("click", () => {
     const type = btn.dataset.reaction; // "up" | "down" coming from the data-reaction button attribute
     spawnReaction(btn, type);
+    actualFig = countReactions(type);
   });
 });
 
 function spawnReaction(btn, type) {
   const span = document.createElement("span");
-  // imposto a hidden altrimenti potrebbe comparire un elemento all'interno del pulsante con font grande come il like se non venisse consumato subito dall'animazione.
-  //span.style.display = "none";
   // Google Font Icon Version
   span.className =
     "material-symbols-outlined g-icon-secondary-color floating-reaction";
