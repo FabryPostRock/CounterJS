@@ -14047,6 +14047,9 @@ body::before {
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400,  'GRAD' 0, 'opsz' 40;
   color: #ffffff;
+  width: 1em !important;
+  height: 1em !important;
+  line-height: 1;
 }
 
 .material-symbols-outlined.g-icon-1em {
@@ -14096,18 +14099,26 @@ button:hover .material-symbols-outlined.g-icon-secondary-color {
   --bs-modal-footer-border-color: rgba(var(--bs-secondary-rgb),0.6);
 }
 
+/*-----------------------------------------BUTTONS STYLING----------------------------------------------*/
 /* Mobile Styles */
-@media only screen and (max-width: 578px) {
-  .mt-sm-md-9 {
-    margin-top: 15rem;
+@media only screen and (max-width: 576px) {
+  .wh-60px-sm {
+    width: 60px;
+    height: 60px;
   }
-  .w-80-md {
-    width: 80% !important;
+  /*
+    font-size = scala del disegno della font (glifo)
+    line-height = altezza del line box (lo spazio verticale della riga di testo)
+    Il glifo “reale” della font non occupa sempre esattamente 1em in modo simmetrico:
+    la font ha metriche interne (ascender, descender, leading) e i glifi possono stare più in alto o in basso dentro quel box.
+    */
+  .material-symbols-outlined.g-icon-3em-sm {
+    font-size: 3rem;
   }
 }
 
 /* Tablet Styles */
-@media only screen and (min-width: 579px) and (max-width: 992px) {
+@media only screen and (min-width: 577px) and (max-width: 992px) {
   .mt-md-lg-9 {
     margin-top: 15rem;
   }
@@ -14116,9 +14127,13 @@ button:hover .material-symbols-outlined.g-icon-secondary-color {
   }
 }
 
-@media only screen and (min-width: 579px) and (max-width: 2048px) {
-  .w-25-lg {
-    width: 25% !important;
+@media only screen and (min-width: 577px) and (max-width: 1400px) {
+  .wh-120px-lg {
+    width: 120px;
+    height: 120px;
+  }
+  .material-symbols-outlined.g-icon-6em-lg {
+    font-size: 6rem;
   }
 }
 /*# sourceMappingURL=main.css.map */
