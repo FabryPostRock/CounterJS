@@ -63,13 +63,16 @@ function openGenderSelModal() {
     const closeButtons = document.querySelectorAll(
       'button[name="genderSelection"][data-bs-dismiss="modal"]'
     );
+    // disable close modal buttons
     closeButtons.forEach((btn) => btn.setAttribute("disabled", true));
+    // hide the modal
     mod.addEventListener("hide.bs.modal", () => {
       const active = document.activeElement;
       if (active && mod.contains(active)) {
         active.blur();
       }
     });
+    // move the focus from the modal to the main page when the modal is hidden
     mod.addEventListener("hidden.bs.modal", () => {
       document.querySelector("#h1-procastination")?.focus();
       isCountTimeoutStarted = true;
@@ -91,16 +94,17 @@ function updateSelState(e, radio) {
   }
 }
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
 function checkFormValidity(e, btns, sel) {
   console.log("checkFormValidity called!");
   e.preventDefault();
   try {
+    // as soon as a radio btn is checked then the close modal btns are enabled
     if (sel?.checked) {
       btns.forEach((btn) => {
         btn.disabled = false;
         btn.removeAttribute("disabled");
       });
+      // selection is saved in a session
       sessionStorage.setItem("gender", sel.value);
     } else {
       throw new Error("sel has not been selected");
@@ -186,9 +190,9 @@ function sleepWithProgressOnce(
   totalMs,
   onTick,
   tickMs = 100,
+  // getCmd = () => null serve perchè la variabile passata non è mutabile quindi il suo aggiornamento non viene visto una volta chiamata la funzione
   getCmd = () => null
 ) {
-  // getCmd = () => null serve perchè la variabile passata non è mutabile quindi il suo aggiornamento non viene visto una volta chiamata la funzione
   let timeDelayID = null;
   let timeTicksId = null;
   let startTime = null;
@@ -245,6 +249,7 @@ function sleepWithProgressOnce(
   return new Promise((resolve) => {
     timeTicksId = setInterval(() => {
       function resetProgressTimers() {
+        // resetta i contatori temporali
         elapsedTime = Math.floor((performance.now() - startTime) / SECOND);
         elapsed = elapsedTime.toFixed(0);
         remainingTime = Math.max(0, totalMs - elapsed) / SECOND;
@@ -252,7 +257,8 @@ function sleepWithProgressOnce(
       }
 
       resetProgressTimers();
-      const cmd = getCmd(); // legge gli aggiornamenti realtime della variabile esterna
+      // legge gli aggiornamenti realtime della variabile esterna
+      const cmd = getCmd();
       if (cmdOld != cmd && cmd) {
         cmdOut = cmd;
         cmdOld = cmd;
@@ -270,6 +276,7 @@ function sleepWithProgressOnce(
         mngTimerDelay(resolve, false, false, elapsed, remaining, "stopped");
         return;
       } else {
+        console.log("runnning!");
         res = onTick?.({
           elapsed: elapsed,
           remaining: remaining,
