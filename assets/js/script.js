@@ -298,13 +298,13 @@ btnReset.addEventListener("click", () => {
   }, RESET_CMD_TIMER);
 });
 
-/*let btnStop = document.querySelector("#btn-stop");
+let btnStop = document.querySelector("#btn-stop");
 btnStop.addEventListener("click", () => {
   btnCmd = "stop";
   setTimeout(() => {
     btnCmd = null;
   }, RESET_CMD_TIMER);
-});*/
+});
 
 let btnStart = document.querySelector("#btn-start");
 btnStart.addEventListener("click", async () => {
