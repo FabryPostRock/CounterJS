@@ -133,7 +133,7 @@ form.addEventListener("submit", (event) =>
 );
 
 // Gestione del count delle reazioni e cambio figure in funzione del risultato ottenuto
-let p = document.querySelector("#reaction-counter");
+let pCounter = document.querySelector("#reaction-counter");
 let nCount = 0;
 const TOTAL_COUNTS_LEVELS = [0, -10, -5, -2, 3, 6];
 
@@ -142,9 +142,11 @@ function countReactions(reactionType, el) {
   let actualFigure;
   let idxFigure;
   if (reactionType === "up") {
-    el.textContent = toString(nCount++);
+    nCount++;
+    el.textContent = nCount.toString();
   } else {
-    el.textContent = toString(nCount--);
+    nCount--;
+    el.textContent = nCount.toString();
   }
 
   if (nCount <= TOTAL_COUNTS_LEVELS[1]) {
@@ -276,7 +278,6 @@ function sleepWithProgressOnce(
         mngTimerDelay(resolve, false, false, elapsed, remaining, "stopped");
         return;
       } else {
-        console.log("runnning!");
         res = onTick?.({
           elapsed: elapsed,
           remaining: remaining,
@@ -360,9 +361,12 @@ async function startTimer() {
 let actualFig;
 document.querySelectorAll(".btn-reaction").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const type = btn.dataset.reaction; // "up" | "down" coming from the data-reaction button attribute
-    spawnReaction(btn, type);
-    actualFig = countReactions(type);
+    if (gTimerState === "running") {
+      // "up" | "down" coming from the data-reaction button attribute
+      const type = btn.dataset.reaction;
+      spawnReaction(btn, type);
+      actualFig = countReactions(type, pCounter);
+    }
   });
 });
 
@@ -387,6 +391,8 @@ function spawnReaction(btn, type) {
   span.style.setProperty("--scale", scale);
 
   span.addEventListener("animationstart", () => {
+    /*The getComputedStyle() method gets the computed CSS properties and values of an HTML element.
+    The getComputedStyle() method returns a CSSStyleDeclaration object.*/
     console.log("animationstart fired", getComputedStyle(span).animationName);
   });
   btn.appendChild(span);
