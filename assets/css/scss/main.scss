@@ -125,7 +125,6 @@ body::before {
 }
 
 
-
 /*---------------------------------------- FONT ICONS------------------------------*/
 .material-symbols-outlined {
     font-variation-settings:
@@ -163,6 +162,13 @@ button:hover{
     --bs-modal-header-border-color: rgba(var(--bs-secondary-rgb),0.6);
     --bs-modal-footer-border-color: rgba(var(--bs-secondary-rgb),0.6);
 }
+
+/*---------------------------------------------------------MODAL---------------------------------------------------*/
+.form-check {
+    padding-left: 0rem;
+    padding-right: 0rem;
+}
+
 
 /* Mobile Styles */
 @media only screen and (max-width: 578px) {
