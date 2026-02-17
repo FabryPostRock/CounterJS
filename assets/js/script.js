@@ -218,7 +218,6 @@ function countReactions(reactionType, el) {
   } else {
     actualFigure = genderFigures.woman[idxFigure];
   }
-  console.log(`actualFigure  countReactions :  \n${actualFigure.title}\n${actualFigure.imgUrl}\n${actualFigure.description}`)
   return actualFigure;
 }
 
@@ -232,6 +231,8 @@ let gProgress = 0;
 let gRemaining = 0;
 let gTimerState = "";
 let gTimerDone = false;
+let pTimeCounter = document.querySelector("#time-counter");
+
 
 function sleepWithProgressOnce(
   totalMs,
@@ -384,6 +385,8 @@ let timerUpdatesId = null;
 async function startTimer() {
   timerUpdatesId = setInterval(() => {
     console.log("LIVE:", gProgress, gRemaining, gTimerState);
+    pTimeCounter.textContent = (gRemaining - gProgress).toString();
+    console.log("time to pargraph", pTimeCounter.textContent)
   }, TIME_TICKS);
 
   cycle = await sleepWithProgressAutoRestart(
@@ -399,7 +402,6 @@ async function startTimer() {
   ).then((endState) => {
     clearInterval(timerUpdatesId);
     console.log("Esecuzione completata!", { ...endState });
-    console.log(`actualFig  startTimer :  \n${actualFig.title}\n${actualFig.imgUrl}\n${actualFig.description}`)
     openResultModal(actualFig, "#h1-procastination");
   });
 }
@@ -413,7 +415,6 @@ document.querySelectorAll(".btn-reaction").forEach((btn) => {
       const type = btn.dataset.reaction;
       spawnReaction(btn, type);
       actualFig = countReactions(type, pCounter);
-      console.log(`actualFig  addEventListener :  \n${actualFig.title}\n${actualFig.imgUrl}\n${actualFig.description}`)
     }
   });
 });
