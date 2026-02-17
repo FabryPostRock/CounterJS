@@ -26,7 +26,7 @@ const genderFigures = {
       description: "Tenti di procastinare ma ci riesci solo sforzandoti! Non va bene cosi! Mettici più costanza!😂",
     },
     {
-      title: "",
+      title: "MANGER..MA CHE MONOTONIA!",
       imgUrl: "assets/img/man_level5.png",
       description: "E spero di non averti mai come amico 😂. Sei monotono, dai prova anche tu a procastinare, sarà divertente incasinarsi un po' la vita!",
     }
@@ -60,7 +60,7 @@ const genderFigures = {
     {
       title: "SEI UNA LEADER!",
       imgUrl: "assets/img/woman_level5.png",
-      description: "E spero di non averti mai come amica 😂. Sei monotona, dai prova anche tu a procastinare, sarà divertente incasinarsi un po' la vita!",
+      description: "E spero di non averti mai come amica 😂. Sei monotona, dai, prova anche tu a procastinare, sarà divertente incasinarsi un po' la vita!",
     }
   ],
 };
@@ -95,13 +95,10 @@ function openGenderSelModal() {
 }
 
 
-function openResultModal(actualFig, focusItem="#h1-procastination") {
+function openResultModal(actualFigure, focusItem="#h1-procastination") {
   try {
     const mod = document.getElementById("playerResult");
     const modal = new bootstrap.Modal(mod, { focus: true });
-    const closeButtons = document.querySelectorAll(
-      'button[name="genderSelection"][data-bs-dismiss="modal"]'
-    );
     // hide the modal
     mod.addEventListener("hide.bs.modal", () => {
       const active = document.activeElement;
@@ -115,12 +112,12 @@ function openResultModal(actualFig, focusItem="#h1-procastination") {
     });
     // aggiorno dinamicamente la card dentro la modale
     const cardImg = mod.querySelector(".card-img-top");
-    const cardTitle = mod.querySelector(".card-title");
-    const cardText = mod.querySelector(".card-text");
-
-    if (cardImg && actualFig?.imgUrl) cardImg.src = actualFig.imgUrl;
-    if (cardTitle) cardTitle.textContent = actualFig?.title ?? "";
-    if (cardText) cardText.textContent = actualFig?.description ?? "";
+    const cardTitle = mod.querySelector(".card-body .card-title");
+    const cardText = mod.querySelector(".card-body .card-text");
+    console.log(`actualFigure  :  \n${actualFigure.title}\n${actualFigure.imgUrl}\n${actualFigure.description}`)
+    if (cardImg && actualFigure?.imgUrl) cardImg.src = actualFigure.imgUrl;
+    if (cardTitle) cardTitle.textContent = actualFigure?.title ?? "";
+    if (cardText) cardText.textContent = actualFigure?.description ?? "";
 
     modal.show();
   } catch (e) {
@@ -180,7 +177,7 @@ form.addEventListener("submit", (event) =>
 let pCounter = document.querySelector("#reaction-counter");
 let nCount = 0;
 const TOTAL_COUNTS_LEVELS = [0, -10, -5, -2, 3, 6];
-
+let actualFig;
 function countReactions(reactionType, el) {
   const gender = sessionStorage.getItem("gender");
   let actualFigure;
@@ -221,6 +218,7 @@ function countReactions(reactionType, el) {
   } else {
     actualFigure = genderFigures.woman[idxFigure];
   }
+  console.log(`actualFigure  countReactions :  \n${actualFigure.title}\n${actualFigure.imgUrl}\n${actualFigure.description}`)
   return actualFigure;
 }
 
@@ -371,10 +369,10 @@ btnStart.addEventListener("click", async () => {
 async function sleepWithProgressAutoRestart(totalMs, onTick, tickMs, cmd) {
   while (true) {
     const endState = await sleepWithProgressOnce(totalMs, onTick, tickMs, cmd);
-    console.log("AAAAAAAAAAAAAAAA", endState.cmd);
+    console.log("Stato finale : ", endState.cmd);
     // Se reset, salta il codice che termina l'esecuzione e riparti: nuova Promise
     if (endState.cmd === "reset") continue;
-    console.log("BBBBBBBBBBBBBBBBB");
+    console.log("Conteggio terminato!");
     // Se stopped o finished, esci e ritorna lo stato finale
     return endState;
   }
@@ -401,12 +399,13 @@ async function startTimer() {
   ).then((endState) => {
     clearInterval(timerUpdatesId);
     console.log("Esecuzione completata!", { ...endState });
+    console.log(`actualFig  startTimer :  \n${actualFig.title}\n${actualFig.imgUrl}\n${actualFig.description}`)
     openResultModal(actualFig, "#h1-procastination");
   });
 }
 
 /*---------------------------------------------THUMB UP/DOWN REACTION---------------------------------------------*/
-let actualFig;
+
 document.querySelectorAll(".btn-reaction").forEach((btn) => {
   btn.addEventListener("click", () => {
     if (gTimerState === "running") {
@@ -414,6 +413,7 @@ document.querySelectorAll(".btn-reaction").forEach((btn) => {
       const type = btn.dataset.reaction;
       spawnReaction(btn, type);
       actualFig = countReactions(type, pCounter);
+      console.log(`actualFig  addEventListener :  \n${actualFig.title}\n${actualFig.imgUrl}\n${actualFig.description}`)
     }
   });
 });
