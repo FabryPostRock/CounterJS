@@ -3,7 +3,7 @@ $form-check-input-indeterminate-bg-color:       $secondary;
 $form-check-input-indeterminate-border-color:     $secondary;*/
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css?family=Nunito");
-
+@import "animations"; 
 :root{   
     --bs-body-font-family: 'Nunito', sans-serif;
     --bs-progress-height: 0.2rem;
@@ -11,7 +11,7 @@ $form-check-input-indeterminate-border-color:     $secondary;*/
     --bs-border-width : 2px;
  
 }
-@import "animations"; 
+
 @import "custom_shapes";  
 
 body {

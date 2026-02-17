@@ -24,6 +24,10 @@
   }
 }
 /*-----------------------------------------------------------------COUNTER SHAKE--------------------------------------------------------------*/
+.txt-shaking {
+  transform-style: flat;
+}
+
 @keyframes shakeXY {
   0% {
     transform: translateX(0);
@@ -41,11 +45,9 @@
     transform: translateX(0);
   }
 }
-.txt-rotateY.is-shaking {
-  display: inline-block;
-  transform-style: flat;
-  --shake-distance: -1rem;
-  animation: shakeXY 0.1s ease-in-out 6;
+.txt-shaking:hover {
+  --shake-distance: 5px;
+  animation: shakeXY 0.1s ease-in-out 2;
 }
 
 /*---------------------------------------------------------BUTTON FLOATING REACTION-------------------------------------------------*/

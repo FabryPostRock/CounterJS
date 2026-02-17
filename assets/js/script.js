@@ -384,8 +384,10 @@ let timerUpdatesId = null;
 
 async function startTimer() {
   timerUpdatesId = setInterval(() => {
+    //pTimeCounter.classList.remove('txt-shaking')
     console.log("LIVE:", gProgress, gRemaining, gTimerState);
     pTimeCounter.textContent = (gRemaining - gProgress).toString();
+    //pTimeCounter.classList.add('txt-shaking')
     console.log("time to pargraph", pTimeCounter.textContent)
   }, TIME_TICKS);
 

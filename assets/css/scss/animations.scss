@@ -25,11 +25,15 @@ $txt-perspective-end: 50rem;
 }
 
 /*-----------------------------------------------------------------COUNTER SHAKE--------------------------------------------------------------*/
- 
-$shake-l-start: -1rem;
+$shake-l-start: 5px;
 $shake-duration: 0.1s;
-$shake-iterations: 6;
-@mixin anim-shake($x: 1rem, $duration: 0.15s, $iterations: 6) {
+$shake-iterations: 2;
+
+.txt-shaking {
+  transform-style: flat;
+}
+
+@mixin anim-shake($x: 10px, $duration: 0.15s, $iterations: 2) {
     --shake-distance: #{$x};
     animation: shakeXY $duration ease-in-out $iterations;
 }
@@ -40,13 +44,13 @@ $shake-iterations: 6;
     50% { transform: translateX(var(--shake-distance)); }
     75% { transform: translateX(calc(var(--shake-distance) * -1)); }
     100% { transform: translateX(0); }
-}
+} 
 
-.txt-rotateY.is-shaking {
-    display: inline-block;
-    transform-style: flat;
+.txt-shaking:hover {
     @include anim-shake($shake-l-start, $shake-duration, $shake-iterations);
 }
+
+ 
 
 /*---------------------------------------------------------BUTTON FLOATING REACTION-------------------------------------------------*/
   
