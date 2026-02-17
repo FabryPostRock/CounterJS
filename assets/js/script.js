@@ -1,57 +1,67 @@
 const genderFigures = {
   man: [
     {
-      title: "",
+      title: "PECCATO! NON SIAMO RIUSCITI AD IDENTIFICARTI..",
+      imgUrl: "assets/img/question_mark.png",
+      description: "",
+    },
+    {
+      title: "SEI UN CASINISTA!",
       imgUrl: "assets/img/man_level1.png",
-      description: "",
+      description: "Non ne sbagli una, e non in senso positivo. 😂",
     },
     {
-      title: "",
+      title: "SEI UN CONFUSIONARIO!",
       imgUrl: "assets/img/man_level2.png",
-      description: "",
+      description: "Ma tranquillo, puoi ancora fare di peggio!😂",
     },
     {
-      title: "",
+      title: "HAI LA TESTA A VIOLE!",
       imgUrl: "assets/img/man_level3.png",
-      description: "",
+      description: "Ogni tanto provi a far qualcosa, dai, sento che sei sulla buona strada.",
     },
     {
-      title: "",
+      title: "SEI NOIOSO!",
       imgUrl: "assets/img/man_level4.png",
-      description: "",
+      description: "Tenti di procastinare ma ci riesci solo sforzandoti! Non va bene cosi! Mettici più costanza!😂",
     },
     {
       title: "",
       imgUrl: "assets/img/man_level5.png",
-      description: "",
-    },
+      description: "E spero di non averti mai come amico 😂. Sei monotono, dai prova anche tu a procastinare, sarà divertente incasinarsi un po' la vita!",
+    }
   ],
   woman: [
     {
-      title: "",
+      title: "PECCATO! NON SIAMO RIUSCITI AD IDENTIFICARTI..",
+      imgUrl: "assets/img/question_mark.png",
+      description: "",
+    },
+    {
+      title: "SEI UNA FANNULLONA!",
       imgUrl: "assets/img/woman_level1.png",
-      description: "",
+      description: "Molto bene, peggio di così non puoi fare!😂",
     },
     {
-      title: "",
+      title: "SEI UNA SBADATELLA!",
       imgUrl: "assets/img/woman_level2.png",
-      description: "",
+      description: "Ma tranquilla, puoi ancora fare di peggio!😂",
     },
     {
-      title: "",
+      title: "SEI UN'ADDORMENTATA!",
       imgUrl: "assets/img/woman_level3.png",
-      description: "",
+      description: "Ogni tanto provi a far qualcosa, dai, sento che sei sulla buona strada.",
     },
     {
-      title: "",
+      title: "SEI STANCA?",
       imgUrl: "assets/img/woman_level4.png",
-      description: "",
+      description: "È perchè devi iniziare a procastinare. È ora d'inziare!😂",
     },
     {
-      title: "",
+      title: "SEI UNA LEADER!",
       imgUrl: "assets/img/woman_level5.png",
-      description: "",
-    },
+      description: "E spero di non averti mai come amica 😂. Sei monotona, dai prova anche tu a procastinare, sarà divertente incasinarsi un po' la vita!",
+    }
   ],
 };
 
@@ -77,6 +87,40 @@ function openGenderSelModal() {
       document.querySelector("#h1-procastination")?.focus();
       isCountTimeoutStarted = true;
     });
+
+    modal.show();
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+
+function openResultModal(actualFig, focusItem="#h1-procastination") {
+  try {
+    const mod = document.getElementById("playerResult");
+    const modal = new bootstrap.Modal(mod, { focus: true });
+    const closeButtons = document.querySelectorAll(
+      'button[name="genderSelection"][data-bs-dismiss="modal"]'
+    );
+    // hide the modal
+    mod.addEventListener("hide.bs.modal", () => {
+      const active = document.activeElement;
+      if (active && mod.contains(active)) {
+        active.blur();
+      }
+    });
+    // move the focus from the modal to the main page when the modal is hidden
+    mod.addEventListener("hidden.bs.modal", () => {
+      document.querySelector(focusItem)?.focus();
+    });
+    // aggiorno dinamicamente la card dentro la modale
+    const cardImg = mod.querySelector(".card-img-top");
+    const cardTitle = mod.querySelector(".card-title");
+    const cardText = mod.querySelector(".card-text");
+
+    if (cardImg && actualFig?.imgUrl) cardImg.src = actualFig.imgUrl;
+    if (cardTitle) cardTitle.textContent = actualFig?.title ?? "";
+    if (cardText) cardText.textContent = actualFig?.description ?? "";
 
     modal.show();
   } catch (e) {
@@ -167,6 +211,9 @@ function countReactions(reactionType, el) {
   } else if (nCount >= TOTAL_COUNTS_LEVELS[5]) {
     console.log("Selected Fig 5");
     idxFigure = 5;
+  }else{
+    console.log("No figure selected yet!");
+    idxFigure = 0;   
   }
 
   if (gender === "man") {
@@ -354,6 +401,7 @@ async function startTimer() {
   ).then((endState) => {
     clearInterval(timerUpdatesId);
     console.log("Esecuzione completata!", { ...endState });
+    openResultModal(actualFig, "#h1-procastination");
   });
 }
 
