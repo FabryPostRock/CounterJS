@@ -12277,6 +12277,9 @@ button:hover .material-symbols-outlined.g-icon-secondary-color {
   .w-80-md {
     width: 80% !important;
   }
+  .material-symbols-outlined.g-icon-sm-4em {
+    font-size: 4rem;
+  }
 }
 /* Tablet Styles */
 @media only screen and (min-width: 579px) and (max-width: 992px) {
