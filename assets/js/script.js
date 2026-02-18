@@ -231,8 +231,8 @@ let gProgress = 0;
 let gRemaining = 0;
 let gTimerState = "";
 let gTimerDone = false;
-let pTimeCounter = document.querySelector("#time-counter");
-
+let pTimeCount = document.querySelector("#time-counter");
+pTimeCount.classList.remove('txt-shaking')
 
 function sleepWithProgressOnce(
   totalMs,
@@ -382,15 +382,40 @@ async function sleepWithProgressAutoRestart(totalMs, onTick, tickMs, cmd) {
 let cycle = null;
 let timerUpdatesId = null;
 
-async function startTimer() {
-  timerUpdatesId = setInterval(() => {
-    //pTimeCounter.classList.remove('txt-shaking')
+function mngTimeCounterAnimations(pTimeCounter){
+    pTimeCounter.classList.remove('txt-shaking')
     console.log("LIVE:", gProgress, gRemaining, gTimerState);
     pTimeCounter.textContent = (gRemaining - gProgress).toString();
-    //pTimeCounter.classList.add('txt-shaking')
-    console.log("time to pargraph", pTimeCounter.textContent)
-  }, TIME_TICKS);
+    pTimeCounter.classList.add('txt-shaking')
+    pTimeCounter.addEventListener(
+      "animationend",
+      () => pTimeCounter.classList.remove("txt-shaking"),
+      /*
+      Senza { once: true } ogni volta si aggiunge un nuovo listener, e ti ritroveresti con:
+        - tanti listener accumulati nel tempo 
+        - listener che scattano tutti insieme alla fine di ogni animazione (effetto duplicato)
+        - potenziale spreco / bug
+      Con { once: true } eviti questo problema senza dover scrivere manualmente removeEventListener.
+      */
+      { once: true }
+    );  
+}
 
+function noReactions(){
+  /* returns the default image if no reactions are pressed*/
+    const gender = sessionStorage.getItem("gender");
+    const actualFigure = null;
+    // no reaction pressed
+    if (gender === "man") {
+      actualFigure = genderFigures.man[0];
+    } else {
+      actualFigure = genderFigures.woman[0];
+    }
+    return actualFigure
+}
+
+async function startTimer() {
+  timerUpdatesId = setInterval(() => mngTimeCounterAnimations(pTimeCount), TIME_TICKS);
   cycle = await sleepWithProgressAutoRestart(
     COUNT_TIMER,
     ({ elapsed, remaining, cmd }) => {
@@ -401,9 +426,12 @@ async function startTimer() {
     },
     100,
     () => btnCmd
-  ).then((endState) => {
+  ).then((endState) => {  
     clearInterval(timerUpdatesId);
     console.log("Esecuzione completata!", { ...endState });
+    // mngTimeCounterAnimations called for the last count and animation
+    mngTimeCounterAnimations(pTimeCount);
+    if (!actualFig) actualFig = noReactions();
     openResultModal(actualFig, "#h1-procastination");
   });
 }

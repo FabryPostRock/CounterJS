@@ -26,13 +26,8 @@ $txt-perspective-end: 50rem;
 
 /*-----------------------------------------------------------------COUNTER SHAKE--------------------------------------------------------------*/
 $shake-l-start: 5px;
-$shake-duration: 0.1s;
-$shake-iterations: 2;
-
-.txt-shaking {
-  transform-style: flat;
-  @include anim-shake($shake-l-start, $shake-duration, $shake-iterations);
-}
+$shake-duration: 0.3s;
+$shake-iterations: 1;
 
 @mixin anim-shake($x: 10px, $duration: 0.15s, $iterations: 2) {
     --shake-distance: #{$x};
@@ -47,7 +42,10 @@ $shake-iterations: 2;
     100% { transform: translateX(0); }
 } 
 
- 
+.txt-shaking {
+  transform-style: flat;
+  @include anim-shake($shake-l-start, $shake-duration, $shake-iterations);
+} 
 
 /*---------------------------------------------------------BUTTON FLOATING REACTION-------------------------------------------------*/
   
