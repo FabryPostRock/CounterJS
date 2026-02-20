@@ -14,3 +14,4 @@ Lead_TEST_MEX1.csv
 /_pycache__/
 **/node_modules/
 **/bootstrap/
+/.firebase/
