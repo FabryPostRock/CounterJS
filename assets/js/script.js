@@ -136,7 +136,6 @@ function updateSelState(e, radio) {
 }
 
 function checkFormValidity(e, btns, sel) {
-  console.log("checkFormValidity called!");
   e.preventDefault();
   try {
     // as soon as a radio btn is checked then the close modal btns are enabled
@@ -147,6 +146,7 @@ function checkFormValidity(e, btns, sel) {
       });
       // selection is saved in a session
       sessionStorage.setItem("gender", sel.value);
+      console.log(`Gender Selected : ${sessionStorage.getItem("gender")}`)
     } else {
       throw new Error("sel has not been selected");
     }

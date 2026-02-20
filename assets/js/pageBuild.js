@@ -120,7 +120,10 @@ function buildModals(el) {
     const manInput = el("input", {
         ...inputDefaultOpt,
         id: "manRadioSel",
-        value: "man"        
+        attrs: {
+            ...inputDefaultOpt.attrs,
+            value: "man"
+        }        
     });
 
     const manLabel = el("label", {
@@ -168,7 +171,10 @@ function buildModals(el) {
     const womanInput = el("input", {
         ...inputDefaultOpt,
         id: "womanRadioSel",
-        value: "woman"       
+        attrs: {
+            ...inputDefaultOpt.attrs,
+            value: "man"
+        }      
     });
     const womanLabel = el("label", {
         className: "form-check-label cursor-pointer d-block",
