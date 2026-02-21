@@ -26,7 +26,7 @@ const genderFigures = {
       description: "Tenti di procastinare ma ci riesci solo sforzandoti! Non va bene cosi! Mettici più costanza!😂",
     },
     {
-      title: "MANGER..MA CHE MONOTONIA!",
+      title: "UN MANAGER COSI' ANCHE NO!..MA CHE MONOTONIA!",
       imgUrl: "assets/img/man_level5.png",
       description: "E spero di non averti mai come amico 😂. Sei monotono, dai prova anche tu a procastinare, sarà divertente incasinarsi un po' la vita!",
     }
@@ -373,7 +373,7 @@ async function sleepWithProgressAutoRestart(totalMs, onTick, tickMs, cmd) {
     console.log("Stato finale : ", endState.cmd);
     // Se reset, salta il codice che termina l'esecuzione e riparti: nuova Promise
     if (endState.cmd === "reset") continue;
-    console.log("Conteggio terminato!");
+    console.log(`sleepWithProgressAutoRestart : ${endState.cmd} ${endState.elapsed} ${endState.remaining}`);
     // Se stopped o finished, esci e ritorna lo stato finale
     return endState;
   }
@@ -404,7 +404,7 @@ function mngTimeCounterAnimations(pTimeCounter){
 function noReactions(){
   /* returns the default image if no reactions are pressed*/
     const gender = sessionStorage.getItem("gender");
-    const actualFigure = null;
+    let actualFigure = null;
     // no reaction pressed
     if (gender === "man") {
       actualFigure = genderFigures.man[0];
@@ -428,7 +428,7 @@ async function startTimer() {
     () => btnCmd
   ).then((endState) => {  
     clearInterval(timerUpdatesId);
-    console.log("Esecuzione completata!", { ...endState });
+    gTimerState = endState.cmd;
     // mngTimeCounterAnimations called for the last count and animation
     mngTimeCounterAnimations(pTimeCount);
     if (!actualFig) actualFig = noReactions();
@@ -488,7 +488,7 @@ function rand(min, max) {
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("/sw.js")
+      .register("serviceWorker.js")
       .then((reg) => console.log("SW registered:", reg.scope))
       .catch((err) => console.error("SW registration failed:", err));
   });
