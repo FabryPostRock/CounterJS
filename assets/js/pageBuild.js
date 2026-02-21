@@ -173,7 +173,7 @@ function buildModals(el) {
         id: "womanRadioSel",
         attrs: {
             ...inputDefaultOpt.attrs,
-            value: "man"
+            value: "woman"
         }      
     });
     const womanLabel = el("label", {
