@@ -19,70 +19,67 @@ Perché non è un normale script JS
 */
 
 /* -------------------- OFFLINE CACHE -------------------- */
-const CACHE_NAME = "procast-cache-v1";
+const CACHE_NAME = "procast-cache-v2"; // cambia versione quando modifichi la lista
 
-// Metti qui i file “core” che vuoi disponibili offline.
-// Aggiungi/togli asset in base al tuo progetto reale.
+// File “core” disponibili offline (relativi allo scope del Service Worker)
 const APP_SHELL = [
-  // root
-  "/",
-  "/index.html",
+  "./",
+  "./index.html",
 
   // manifest (nel tuo progetto è dentro assets/img)
-  "/assets/img/site.webmanifest",
+  "./assets/img/site.webmanifest",
 
-  // CSS + map + SCSS (anche se SCSS/map non servono a runtime, li includo perché li vuoi offline)
-  "/assets/css/scss/main.css",
+  // CSS
+  "./assets/css/scss/main.css",
 
   // Fonts (locali)
-  "/assets/fonts/fonts.css",
-  "/assets/fonts/icomoon.eot",
-  "/assets/fonts/icomoon.svg",
-  "/assets/fonts/icomoon.ttf",
-  "/assets/fonts/icomoon.woff",
+  "./assets/fonts/fonts.css",
+  "./assets/fonts/icomoon.eot",
+  "./assets/fonts/icomoon.svg",
+  "./assets/fonts/icomoon.ttf",
+  "./assets/fonts/icomoon.woff",
 
   // JS (locali)
-  "/assets/js/pageBuild.js",
-  "/assets/js/script.js",
-  "/assets/js/serviceWorker.js", // se esiste davvero ed è servito come file statico
+  "./assets/js/pageBuild.js",
+  "./assets/js/script.js",
 
   // Immagini + icone
-  "/assets/img/apple-touch-icon.png",
-  "/assets/img/background.png",
-  "/assets/img/favicon-96x96.png",
-  "/assets/img/favicon.ico",
-  "/assets/img/favicon.svg",
-  "/assets/img/logo-procastination.png",
+  "./assets/img/apple-touch-icon.png",
+  "./assets/img/background.png",
+  "./assets/img/favicon-96x96.png",
+  "./assets/img/favicon.ico",
+  "./assets/img/favicon.svg",
+  "./assets/img/logo-procastination.png",
 
-  "/assets/img/man.png",
-  "/assets/img/woman.png",
-  "/assets/img/man_or_woman.png",
-  "/assets/img/question_mark.png",
+  "./assets/img/man.png",
+  "./assets/img/woman.png",
+  "./assets/img/man_or_woman.png",
+  "./assets/img/question_mark.png",
 
-  "/assets/img/man_level1.png",
-  "/assets/img/man_level2.png",
-  "/assets/img/man_level3.png",
-  "/assets/img/man_level4.png",
-  "/assets/img/man_level5.png",
+  "./assets/img/man_level1.png",
+  "./assets/img/man_level2.png",
+  "./assets/img/man_level3.png",
+  "./assets/img/man_level4.png",
+  "./assets/img/man_level5.png",
 
-  "/assets/img/woman_level1.png",
-  "/assets/img/woman_level2.png",
-  "/assets/img/woman_level3.png",
-  "/assets/img/woman_level4.png",
-  "/assets/img/woman_level5.png",
+  "./assets/img/woman_level1.png",
+  "./assets/img/woman_level2.png",
+  "./assets/img/woman_level3.png",
+  "./assets/img/woman_level4.png",
+  "./assets/img/woman_level5.png",
 
   // Icone PWA
-  "/assets/img/web-app-manifest-192x192.png",
-  "/assets/img/web-app-manifest-512x512.png",
+  "./assets/img/web-app-manifest-192x192.png",
+  "./assets/img/web-app-manifest-512x512.png",
 ];
 
-
-//È la prima installazione del worker.Tipicamente qui pre-cachi i file statici.
+// Prima installazione: pre-cache app shell
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
-  );
-  self.skipWaiting();
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.addAll(APP_SHELL);
+    await self.skipWaiting();
+  })());
 });
 
 /*Scatta quando il worker diventa quello attivo.
