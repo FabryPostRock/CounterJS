@@ -93,5 +93,18 @@ $shake-iterations: 1;
     }
 }
   
+//---------------------------------------------------------------Start Button Blink----------------------------------------------------//
+@keyframes startBlink {
+  0%, 100% { transform: scale(1); filter: brightness(1); opacity: 1; }
+  50%      { transform: scale(1.2); filter: brightness(1.3); opacity: 0.75; }
+}
 
-  
+/* classe che attiva il lampeggio */
+.btn-start-blink {
+  animation: startBlink 0.9s ease-in-out infinite;
+}
+
+/* accessibilità: rispetta chi riduce le animazioni */
+@media (prefers-reduced-motion: reduce) {
+  .btn-start-blink { animation: none; }
+}  

@@ -65,7 +65,28 @@ const genderFigures = {
   ],
 };
 
-let isCountTimeoutStarted = false;
+
+let startBlink = null
+
+function enableStartBlink() {
+  startBlink = true
+  const btnStart = document.querySelector("#btn-start");
+  if (!btnStart) return;
+  // lampeggia solo se non è mai stato premuto in questa sessione
+  if(startBlink){
+    btnStart.classList.add("btn-start-blink");
+  }
+}
+
+function disableStartBlink() {
+  const btnStart = document.querySelector("#btn-start");
+  if (!btnStart) return;
+  btnStart.classList.remove("btn-start-blink");
+  startBlink = false
+  console.log(	`Il valore di startBlink è : ${startBlink}`)
+}
+
+
 function openGenderSelModal() {
   try {
     const mod = document.getElementById("genderSel");
@@ -85,7 +106,8 @@ function openGenderSelModal() {
     // move the focus from the modal to the main page when the modal is hidden
     mod.addEventListener("hidden.bs.modal", () => {
       document.querySelector("#h1-procastination")?.focus();
-      isCountTimeoutStarted = true;
+      enableStartBlink(); 
+      console.log(	`Il valore di startBlink è : ${startBlink}`)
     });
 
     modal.show();
@@ -357,6 +379,7 @@ btnStart.addEventListener("click", async () => {
   try {
     if (!cycle) {
       btnCmd = "start";
+      disableStartBlink();
       await startTimer();
       setTimeout(() => {
         btnCmd = null;
