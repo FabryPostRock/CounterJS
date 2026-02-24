@@ -46,7 +46,7 @@ Il progetto è una web app single page pubblicata su Firebase Hosting (con rewri
 All’avvio:
 
 - viene mostrata una **modale** per la scelta del genere man/woman e la selezione viene salvata in **sessionStorage**
-- la UI viene **creata dinamicamente** via JavaScript (niente `innerHTML`: nodi creati con `document.createElement`, attributi, classi, append)
+- la UI viene **creata dinamicamente** via JavaScript (nodi creati con `document.createElement`, attributi, classi, append)
 - l’utente può avviare il **countdown** (15s) e durante il conteggio può cliccare **thumb up/down**: ogni click aggiorna il contatore e fa partire una piccola animazione floating_reaction
 - allo scadere del timer, viene mostrata una **modale risultato** con una card (immagine + titolo + descrizione) aggiornata dinamicamente in base a soglie di punteggio
 - la pagina include meta SEO/OG e dati strutturati JSON-LD
@@ -101,7 +101,7 @@ In più è presente una componente **PWA**:
 
 ### Run locally
 
-Per testare correttamente **Service Worker / PWA** serve un server su `localhost` (non aprire `index.html` con doppio click).
+Per testare più velocemente si può usare o un server su `localhost` oppure aprire `index.html` con doppio click essendo un contenuto di puro FrontEnd.
 
 **Con VSCode Live Server:**
 
@@ -146,7 +146,7 @@ Per testare correttamente **Service Worker / PWA** serve un server su `localhost
   - variabili, stili custom e animazioni
 
 - `serviceWorker.js`
-  - caching offline + fetch strategy
+  - PWA + caching offline + fetch strategy
 
 - `firebase.json`
   - hosting con rewrite a `/index.html`
@@ -155,7 +155,6 @@ Per testare correttamente **Service Worker / PWA** serve un server su `localhost
 
 ## Roadmap
 
-- [ ] Persistenza punteggi (localStorage o backend)
 - [ ] Pannello statistiche giornaliere/settimanali
 - [ ] Miglioramento accessibilità (focus management completo + aria labels più granulari)
 - [ ] Notifiche push (completare il flusso end-to-end client + permessi)
