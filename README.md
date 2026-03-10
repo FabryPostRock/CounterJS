@@ -7,16 +7,16 @@
 <br />
 <div align="center">
   <a href="#">
-    <img src="assets/img/logo-procastination.png" alt="Logo" width="90" height="90">
+    <img src="assets/img/logo-procrastination.png" alt="Logo" width="90" height="90">
   </a>
 
-<h3 align="center">Procastination Counter</h3>
+<h3 align="center">Procrastination Counter</h3>
 
   <p align="center">
     Un mini-gioco web (stile anti-procrastination) per tracciare, con un tocco ironico, quante volte hai procrastinato oggi: scegli il genere, avvia un countdown, premi pollice su/giù e alla fine ottieni una “game card” in base al punteggio.
     <br />
     <br />
-    <a href="https://procastination-counter-9e086.web.app"><strong>View Demo</strong></a>
+    <a href="https://procrastination-counter.web.app"><strong>View Demo</strong></a>
   </p>
 </div>
 
@@ -117,7 +117,7 @@ Per testare più velocemente si può usare o un server su `localhost` oppure apr
 
 ## Usage
 
-1. Apri la web app / demo: https://procastination-counter-9e086.web.app
+1. Apri la web app / demo: https://procrastination-counter-9e086.web.app
 2. Seleziona il genere nella modale iniziale
 3. Premi **Start** per avviare il countdown (15 secondi)
 4. Durante il countdown, premi **thumb up/down**
