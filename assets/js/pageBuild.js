@@ -15,10 +15,10 @@ const el = (tag, { className, id, attrs, text } = {}) => {
     if (id) node.id = id;
     if (text != null) node.textContent = text;
     if (attrs) {
-    for (const [k, v] of Object.entries(attrs)) {
-        if (v === null || v === undefined) continue;
-        node.setAttribute(k, String(v));
-    }
+        for (const [k, v] of Object.entries(attrs)) {
+            if (v === null || v === undefined) continue;
+            node.setAttribute(k, String(v));
+        }
     }
     return node;
 };
