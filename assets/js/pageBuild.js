@@ -30,10 +30,6 @@ function buildModals(el) {
     const existingPlayerResult = document.getElementById("playerResult");
     if (existingPlayerResult) existingPlayerResult.remove();
 
-
-
-
-
     //--------------------------------------- MODAL genderSel ------------------------------
     const modalDefaultOptions = {
         className: "modal modal-lg",
