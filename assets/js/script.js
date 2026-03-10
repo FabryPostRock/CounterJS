@@ -147,16 +147,6 @@ function openResultModal(actualFigure, focusItem="#h1-procrastination") {
   }
 }
 
-function updateSelState(e, radio) {
-  try {
-    console.log("updateCloseState called!");
-    return radio?.selected;
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
-}
-
 function checkFormValidity(e, btns, sel) {
   e.preventDefault();
   try {
