@@ -326,10 +326,10 @@ function buildMainBody(el) {
     // ------------------- H1 -------------------
     const rowH1 = el("div", { className: "row m-4" });
     const h1 = el("h1", {
-        id: "h1-procastination",
+        id: "h1-procrastination",
         className: "text-center",
         attrs: { tabindex: "-1" },
-        text: "Quante volte hai procastinato oggi?",
+        text: "Quante volte hai procrastinato oggi?",
     });
     rowH1.appendChild(h1);
 

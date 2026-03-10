@@ -23,12 +23,12 @@ const genderFigures = {
     {
       title: "SEI NOIOSO!",
       imgUrl: "assets/img/man_level4.png",
-      description: "Tenti di procastinare ma ci riesci solo sforzandoti! Non va bene cosi! Mettici più costanza!😂",
+      description: "Tenti di procrastinare ma ci riesci solo sforzandoti! Non va bene cosi! Mettici più costanza!😂",
     },
     {
       title: "UN MANAGER COSI' ANCHE NO!..MA CHE MONOTONIA!",
       imgUrl: "assets/img/man_level5.png",
-      description: "E spero di non averti mai come amico 😂. Sei monotono, dai prova anche tu a procastinare, sarà divertente incasinarsi un po' la vita!",
+      description: "E spero di non averti mai come amico 😂. Sei monotono, dai prova anche tu a procrastinare, sarà divertente incasinarsi un po' la vita!",
     }
   ],
   woman: [
@@ -55,12 +55,12 @@ const genderFigures = {
     {
       title: "SEI STANCA?",
       imgUrl: "assets/img/woman_level4.png",
-      description: "È perchè devi iniziare a procastinare. È ora d'inziare!😂",
+      description: "È perchè devi iniziare a procrastinare. È ora d'inziare!😂",
     },
     {
       title: "SEI UNA LEADER!",
       imgUrl: "assets/img/woman_level5.png",
-      description: "E spero di non averti mai come amica 😂. Sei monotona, dai, prova anche tu a procastinare, sarà divertente incasinarsi un po' la vita!",
+      description: "E spero di non averti mai come amica 😂. Sei monotona, dai, prova anche tu a procrastinare, sarà divertente incasinarsi un po' la vita!",
     }
   ],
 };
@@ -105,7 +105,7 @@ function openGenderSelModal() {
     });
     // move the focus from the modal to the main page when the modal is hidden
     mod.addEventListener("hidden.bs.modal", () => {
-      document.querySelector("#h1-procastination")?.focus();
+      document.querySelector("#h1-procrastination")?.focus();
       enableStartBlink(); 
       console.log(	`Il valore di startBlink è : ${startBlink}`)
     });
@@ -117,7 +117,7 @@ function openGenderSelModal() {
 }
 
 
-function openResultModal(actualFigure, focusItem="#h1-procastination") {
+function openResultModal(actualFigure, focusItem="#h1-procrastination") {
   try {
     const mod = document.getElementById("playerResult");
     const modal = new bootstrap.Modal(mod, { focus: true });
@@ -455,7 +455,7 @@ async function startTimer() {
     // mngTimeCounterAnimations called for the last count and animation
     mngTimeCounterAnimations(pTimeCount);
     if (!actualFig) actualFig = noReactions();
-    openResultModal(actualFig, "#h1-procastination");
+    openResultModal(actualFig, "#h1-procrastination");
   });
 }
 
