@@ -12230,6 +12230,10 @@ body::before {
   font-size: calc(6rem + 4.5vw);
 }
 
+.w-18-rem {
+  width: 18rem;
+}
+
 /*---------------------------------------- FONT ICONS------------------------------*/
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 40;

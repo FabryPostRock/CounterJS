@@ -271,10 +271,7 @@ function buildModals(el) {
     // Body
     const bodyPlayerResult = el("div", { className: "modal-body d-flex align-content-center justify-content-center" });
     const card = el("div", { 
-        className: "card",
-        attrs: {
-            style:"width: 18rem;",
-        },        
+        className: "card w-18-rem",    
     });
     const img = el("img", {
         className: "card-img-top",
