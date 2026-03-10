@@ -364,10 +364,14 @@ btnStop.addEventListener("click", () => {
   }, RESET_CMD_TIMER);
 });
 
+let cycle = false;
+let timerUpdatesId = null;
 let btnStart = document.querySelector("#btn-start");
 btnStart.addEventListener("click", async () => {
   try {
     if (!cycle) {
+      cycle = true;
+      console.log(`cycle : ${cycle}`)
       btnCmd = "start";
       disableStartBlink();
       await startTimer();
@@ -391,9 +395,6 @@ async function sleepWithProgressAutoRestart(totalMs, onTick, tickMs, cmd) {
     return endState;
   }
 }
-
-let cycle = null;
-let timerUpdatesId = null;
 
 function mngTimeCounterAnimations(pTimeCounter){
     pTimeCounter.classList.remove('txt-shaking')
@@ -429,7 +430,7 @@ function noReactions(){
 
 async function startTimer() {
   timerUpdatesId = setInterval(() => mngTimeCounterAnimations(pTimeCount), TIME_TICKS);
-  cycle = await sleepWithProgressAutoRestart(
+  await sleepWithProgressAutoRestart(
     COUNT_TIMER,
     ({ elapsed, remaining, cmd }) => {
       gProgress = elapsed;
@@ -446,6 +447,8 @@ async function startTimer() {
     mngTimeCounterAnimations(pTimeCount);
     if (!actualFig) actualFig = noReactions();
     openResultModal(actualFig, "#h1-procrastination");
+    cycle = false;
+    console.log(`cycle : ${cycle}`)
   });
 }
 
