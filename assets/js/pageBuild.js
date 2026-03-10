@@ -58,7 +58,7 @@ function buildModals(el) {
     // Header
     const header = el("div", { className: "modal-header" });
 
-    titleDefaultOptions = {
+    const titleDefaultOptions = {
         className: "modal-title",
     };
  
