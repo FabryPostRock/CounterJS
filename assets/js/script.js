@@ -198,7 +198,7 @@ form.addEventListener("submit", (event) =>
 // Gestione del count delle reazioni e cambio figure in funzione del risultato ottenuto
 let pCounter = document.querySelector("#reaction-counter");
 let nCount = 0;
-const TOTAL_COUNTS_LEVELS = [0, -10, -5, -2, 3, 6];
+const TOTAL_COUNTS_LEVELS = [0, -10, -5, -1, 1, 6];
 let actualFig;
 function countReactions(reactionType, el) {
   const gender = sessionStorage.getItem("gender");
@@ -223,8 +223,7 @@ function countReactions(reactionType, el) {
     idxFigure = 3;
   } else if (
     nCount >= TOTAL_COUNTS_LEVELS[4] &&
-    nCount < TOTAL_COUNTS_LEVELS[5]
-  ) {
+    nCount < TOTAL_COUNTS_LEVELS[5]) {
     console.log("Selected Fig 4");
     idxFigure = 4;
   } else if (nCount >= TOTAL_COUNTS_LEVELS[5]) {
