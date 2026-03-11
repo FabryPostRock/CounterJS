@@ -117,7 +117,7 @@ Per testare più velocemente si può usare o un server su `localhost` oppure apr
 
 ## Usage
 
-1. Apri la web app / demo: https://procrastination-counter-9e086.web.app
+1. Apri la web app / demo: https://procrastination-counter.web.app/
 2. Seleziona il genere nella modale iniziale
 3. Premi **Start** per avviare il countdown (15 secondi)
 4. Durante il countdown, premi **thumb up/down**
