@@ -3,7 +3,7 @@ const genderFigures = {
     {
       title: "PECCATO! NON SIAMO RIUSCITI AD IDENTIFICARTI..",
       imgUrl: "assets/img/question_mark.png",
-      description: "",
+      description: "Coraggio, non aver paura a premere i tasti 👍👎!",
     },
     {
       title: "SEI UN CASINISTA!",
@@ -35,7 +35,7 @@ const genderFigures = {
     {
       title: "PECCATO! NON SIAMO RIUSCITI AD IDENTIFICARTI..",
       imgUrl: "assets/img/question_mark.png",
-      description: "",
+      description: "Coraggio, non aver paura a premere i tasti 👍👎!",
     },
     {
       title: "SEI UNA FANNULLONA!",
