@@ -370,7 +370,7 @@ let btnStart = document.querySelector("#btn-start");
 btnStart.addEventListener("click", async () => {
   try {
     if (!cycle) {
-      cycle = true;
+      **cycle = true;
       console.log(`cycle : ${cycle}`)
       btnCmd = "start";
       disableStartBlink();
