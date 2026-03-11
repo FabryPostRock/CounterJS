@@ -94,6 +94,7 @@ function openGenderSelModal() {
     const closeButtons = document.querySelectorAll(
       'button[name="genderSelection"][data-bs-dismiss="modal"]'
     );
+    console.log(closeButtons)
     // disable close modal buttons
     closeButtons.forEach((btn) => btn.setAttribute("disabled", true));
     // hide the modal
@@ -147,8 +148,12 @@ function openResultModal(actualFigure, focusItem="#h1-procrastination") {
   }
 }
 
-function checkFormValidity(e, btns, sel) {
-  e.preventDefault();
+function checkFormValidity(e = null, btns, sel) {
+  if (e && typeof e.preventDefault === "function") {
+    e.preventDefault();
+    return
+  }
+  
   try {
     // as soon as a radio btn is checked then the close modal btns are enabled
     if (sel?.checked) {
@@ -173,13 +178,18 @@ const radios = document.querySelectorAll('input[name="genderSelection"]');
 const closeButtons = document.querySelectorAll(
   'button[name="genderSelection"][data-bs-dismiss="modal"]'
 );
+console.log(closeButtons)
 radios.forEach((r) => {
   //only the triggered event executes the callback to return the selection
   r.addEventListener("click", (event) => {
     selection = r;
+    checkFormValidity(null, closeButtons, selection)
   });
 });
 
+/*Il listener sull'evento sotto serve ad evitare con preventDefault() il comportamento sotto:
+al click su Salva e Chiudi il browser fa una submit vera (verso la stessa pagina) → la pagina si ricarica 
+→ DOMContentLoaded scatta di nuovo → openGenderSelModal() viene richiamata → la modale si riapre.*/
 const form = document.querySelector("#form-gender-sel");
 form.addEventListener("submit", (event) =>
   checkFormValidity(event, closeButtons, selection)
@@ -370,7 +380,7 @@ let btnStart = document.querySelector("#btn-start");
 btnStart.addEventListener("click", async () => {
   try {
     if (!cycle) {
-      **cycle = true;
+      cycle = true;
       console.log(`cycle : ${cycle}`)
       btnCmd = "start";
       disableStartBlink();

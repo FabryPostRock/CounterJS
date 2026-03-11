@@ -76,7 +76,7 @@ function buildModals(el) {
         ...btnCloseXDefaultOpt,
         attrs: {
             ...btnCloseXDefaultOpt.attrs,
-            name: "genderSelector"
+            name: "genderSelection"
         }
         
     });
@@ -202,8 +202,13 @@ function buildModals(el) {
 
     const btnSubmit = el("button", {
         className: "btn btn-secondary mb-3",
-        attrs: { type: "submit" },
-        text: "Salva",
+        attrs: { 
+                type: "submit",
+                name: "genderSelection",
+                "data-bs-dismiss": "modal",
+                "aria-label": "Salva e Chiudi",
+                },
+        text: "Salva e Chiudi",
     });
 
     submitCol.appendChild(btnSubmit);
@@ -214,23 +219,8 @@ function buildModals(el) {
     row.appendChild(form);
     body.appendChild(row);
 
-    // Footer
-    const footer = el("div", { className: "modal-footer" });
-
-    const btnClose = el("button", {
-        className: "btn btn-secondary",
-        attrs: {
-        type: "button",
-        name: "genderSelection",
-        "data-bs-dismiss": "modal",
-        },
-        text: "Chiudi",
-    });
-
-    footer.appendChild(btnClose);
-
     // Compose modal tree
-    content.append(header, body, footer);
+    content.append(header, body);
     dialog.appendChild(content);
     modalGenderSel.appendChild(dialog);
 
