@@ -83,7 +83,6 @@ function disableStartBlink() {
   if (!btnStart) return;
   btnStart.classList.remove("btn-start-blink");
   startBlink = false
-  console.log(	`Il valore di startBlink è : ${startBlink}`)
 }
 
 
@@ -94,7 +93,6 @@ function openGenderSelModal() {
     const closeButtons = document.querySelectorAll(
       'button[name="genderSelection"][data-bs-dismiss="modal"]'
     );
-    console.log(closeButtons)
     // disable close modal buttons
     closeButtons.forEach((btn) => btn.setAttribute("disabled", true));
     // hide the modal
@@ -108,7 +106,6 @@ function openGenderSelModal() {
     mod.addEventListener("hidden.bs.modal", () => {
       document.querySelector("#h1-procrastination")?.focus();
       enableStartBlink(); 
-      console.log(	`Il valore di startBlink è : ${startBlink}`)
     });
 
     modal.show();
@@ -137,7 +134,6 @@ function openResultModal(actualFigure, focusItem="#h1-procrastination") {
     const cardImg = mod.querySelector(".card-img-top");
     const cardTitle = mod.querySelector(".card-body .card-title");
     const cardText = mod.querySelector(".card-body .card-text");
-    console.log(`actualFigure  :  \n${actualFigure.title}\n${actualFigure.imgUrl}\n${actualFigure.description}`)
     if (cardImg && actualFigure?.imgUrl) cardImg.src = actualFigure.imgUrl;
     if (cardTitle) cardTitle.textContent = actualFigure?.title ?? "";
     if (cardText) cardText.textContent = actualFigure?.description ?? "";
@@ -163,7 +159,6 @@ function checkFormValidity(e = null, btns, sel) {
       });
       // selection is saved in a session
       sessionStorage.setItem("gender", sel.value);
-      console.log(`Gender Selected : ${sessionStorage.getItem("gender")}`)
     } else {
       throw new Error("sel has not been selected");
     }
@@ -178,7 +173,7 @@ const radios = document.querySelectorAll('input[name="genderSelection"]');
 const closeButtons = document.querySelectorAll(
   'button[name="genderSelection"][data-bs-dismiss="modal"]'
 );
-console.log(closeButtons)
+
 radios.forEach((r) => {
   //only the triggered event executes the callback to return the selection
   r.addEventListener("click", (event) => {
@@ -213,24 +208,18 @@ function countReactions(reactionType, el) {
   }
 
   if (nCount <= TOTAL_COUNTS_LEVELS[1]) {
-    console.log("Selected Fig 1");
     idxFigure = 1;
   } else if (nCount <= TOTAL_COUNTS_LEVELS[2]) {
-    console.log("Selected Fig 2");
     idxFigure = 2;
   } else if (nCount <= TOTAL_COUNTS_LEVELS[3]) {
-    console.log("Selected Fig 3");
     idxFigure = 3;
   } else if (
     nCount >= TOTAL_COUNTS_LEVELS[4] &&
     nCount < TOTAL_COUNTS_LEVELS[5]) {
-    console.log("Selected Fig 4");
     idxFigure = 4;
   } else if (nCount >= TOTAL_COUNTS_LEVELS[5]) {
-    console.log("Selected Fig 5");
     idxFigure = 5;
   }else{
-    console.log("No figure selected yet!");
     idxFigure = 0;   
   }
 
@@ -331,17 +320,14 @@ function sleepWithProgressOnce(
       if (cmdOld != cmd && cmd) {
         cmdOut = cmd;
         cmdOld = cmd;
-        console.log(`cmdOut : ${cmdOut}    cmdOld: ${cmdOld}    cmd: ${cmd}`);
       }
 
       if (cmdOut === "reset") {
-        console.log("reset event received!");
         startTime = performance.now();
         resetProgressTimers();
         mngTimerDelay(resolve, false, true, elapsed, remaining, "reset");
         return;
       } else if (cmdOut === "stop") {
-        console.log("stop event received!");
         mngTimerDelay(resolve, false, false, elapsed, remaining, "stopped");
         return;
       } else {
@@ -380,7 +366,6 @@ btnStart.addEventListener("click", async () => {
   try {
     if (!cycle) {
       cycle = true;
-      console.log(`cycle : ${cycle}`)
       btnCmd = "start";
       disableStartBlink();
       await startTimer();
@@ -396,10 +381,8 @@ btnStart.addEventListener("click", async () => {
 async function sleepWithProgressAutoRestart(totalMs, onTick, tickMs, cmd) {
   while (true) {
     const endState = await sleepWithProgressOnce(totalMs, onTick, tickMs, cmd);
-    console.log("Stato finale : ", endState.cmd);
     // Se reset, salta il codice che termina l'esecuzione e riparti: nuova Promise
     if (endState.cmd === "reset") continue;
-    console.log(`sleepWithProgressAutoRestart : ${endState.cmd} ${endState.elapsed} ${endState.remaining}`);
     // Se stopped o finished, esci e ritorna lo stato finale
     return endState;
   }
@@ -407,7 +390,6 @@ async function sleepWithProgressAutoRestart(totalMs, onTick, tickMs, cmd) {
 
 function mngTimeCounterAnimations(pTimeCounter){
     pTimeCounter.classList.remove('txt-shaking')
-    console.log("LIVE:", gProgress, gRemaining, gTimerState);
     pTimeCounter.textContent = (gRemaining - gProgress).toString();
     pTimeCounter.classList.add('txt-shaking')
     pTimeCounter.addEventListener(
@@ -457,7 +439,6 @@ async function startTimer() {
     if (!actualFig) actualFig = noReactions();
     openResultModal(actualFig, "#h1-procrastination");
     cycle = false;
-    console.log(`cycle : ${cycle}`)
   });
 }
 
@@ -494,11 +475,6 @@ function spawnReaction(btn, type) {
   span.style.setProperty("--dur", `${dur}ms`);
   span.style.setProperty("--scale", scale);
 
-  span.addEventListener("animationstart", () => {
-    /*The getComputedStyle() method gets the computed CSS properties and values of an HTML element.
-    The getComputedStyle() method returns a CSSStyleDeclaration object.*/
-    console.log("animationstart fired", getComputedStyle(span).animationName);
-  });
   btn.appendChild(span);
   // pulizia a fine animazione
   span.addEventListener("animationend", () => span.remove());
@@ -514,7 +490,6 @@ if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("serviceWorker.js")
-      .then((reg) => console.log("SW registered:", reg.scope))
       .catch((err) => console.error("SW registration failed:", err));
   });
 }
